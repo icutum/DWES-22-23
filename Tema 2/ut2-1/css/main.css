@@ -1,0 +1,149 @@
+:root {
+    /* Paleta de colores Gruvbox*/
+    --bg_h: #1d2021;
+    --bg:   #282828;
+    --bg_s: #32302f;
+    --bg1:  #3c3836;
+    --bg2:  #504945;
+    --bg3:  #665c54;
+    --bg4:  #7c6f64;
+  
+    --fg:  #fbf1c7;
+    --fg1: #ebdbb2;
+    --fg2: #d5c4a1;
+    --fg3: #bdae93;
+    --fg4: #a89984;
+  
+    --red:    #fb4934;
+    --green:  #b8bb26;
+    --yellow: #fabd2f;
+    --blue:   #83a598;
+    --purple: #d3869b;
+    --aqua:   #8ec07c;
+    --gray:   #928374;
+    --orange: #fe8019;
+  
+    --red-dim:    #cc2412;
+    --green-dim:  #98971a;
+    --yellow-dim: #d79921;
+    --blue-dim:   #458588;
+    --purple-dim: #b16286;
+    --aqua-dim:   #689d6a;
+    --gray-dim:   #a89984;
+    --orange-dim: #d65d0e;
+
+    /* Tamaño de fuente */
+    --fs-400: 2.4rem;
+    --fs-500: 3.2rem;
+  }
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: monospace;
+    background-color: var(--bg_h);
+    color: var(--fg);
+}
+
+h1 {
+    font-size: var(--fs-500);
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+label {
+    display: block;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5rem;
+    height: 100vh;
+}
+
+.card {
+    padding: 2.5rem;
+    width: 50rem;
+    font-size: var(--fs-400);
+    background-color: var(--bg_s);
+}
+
+.card__list {
+    margin-left: 2.5rem;
+}
+
+.txt {
+    position: relative;
+    width: 100%;
+    border: none;
+    background-color: var(--bg4);
+    padding: 0.25em 0.5em;
+}
+
+.txt:focus {
+    outline: none;
+}
+
+.btn {
+    padding: 0.5em;
+    width: 100%;
+    border: none;
+}
+
+.btn--submit {
+    background: linear-gradient(
+        120deg,
+        var(--red) 20%,
+        var(--green) 20% 40%,
+        var(--yellow) 40% 60%,
+        var(--blue) 60% 80%,
+        var(--purple) 80% 100%
+    );
+    color: var(--bg);
+    transition: opacity 0.25s;
+}
+
+.btn--submit:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.red {
+    color: var(--red);
+}
+
+.green {
+    color: var(--green);
+}
+
+@media screen and (max-width: 576px) {
+    h1 {
+        text-align: center;
+    }
+
+    h1,
+    .card {
+        width: 90%;
+    }
+}
