@@ -10,29 +10,29 @@
     function mostrarHorario($h) {
 ?>
         <table>
-        <caption>Horario de DAW2V</caption>
+            <caption>Horario de DAW2V</caption>
 
-        <?php
-        for ($i = 0; $i < count($h); $i++) {
-            $diaSemana = key($h); // Cogemos la clave del array
-        ?>
-            <tr>
-                <th><?= $diaSemana ?></th>
-        <?php            
-            $numModulos = count($h[key($h)]);
-            for ($j = 0; $j < $numModulos; $j++) {
-                if ($j == $numModulos / 2) {
-        ?>
-                    <td>Recreo</td>
-            <?php }
-                $modulo = $h[key($h)][$j]; // Pillamos cada módulo 
-            ?>    
-                <td class="<?= $modulo ?>"><?= $modulo ?></td>
+            <?php
+            for ($i = 0; $i < count($h); $i++) {
+                $diaSemana = key($h); // Cogemos la clave del array
+            ?>
+                <tr>
+                    <th><?= $diaSemana // Imprime cada día de la semana ?></th>
+            <?php            
+                $numModulos = count($h[key($h)]);
+                for ($j = 0; $j < $numModulos; $j++) {
+                    if ($j == $numModulos / 2) { // Si el bucle llega a la mitad de los módulos, imprime una celda que sea el recreo
+            ?>
+                        <td>Recreo</td>
+                <?php }
+                    $modulo = $h[key($h)][$j]; // Pillamos cada módulo 
+                ?>    
+                    <td class="<?= $modulo ?>"><?= $modulo // Imprime cada módulo ?></td>
+                <?php } ?>
+
+                </tr>
+                <?php next($h); // Avanza el puntero a la clave del siguiente día ?>
             <?php } ?>
-
-            </tr>
-            <?php next($h); // Avanza el puntero a la clave del siguiente día ?>
-        <?php } ?>
         </table>
 <?php } ?>
 
