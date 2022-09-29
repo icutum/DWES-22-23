@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: arial;
+    font-size: 24px;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+table {
+    border-collapse: collapse;
+    text-align: center;
+    width: fit-content;
+    border: 1px solid black;
+}
+
+/* Para transponer la tabla */
+tr {
+    display: block;
+    float: left;
+}
+
+th, td {
+    display: block;
+    padding: 10px;
+    border: 1px solid black;
+}
+/* Para transponer la tabla */
+
+.DWEC {
+    background-color: #ffffb5;
+}
+
+.DWES {
+    background-color: #cbaacb;
+}
+
+.DAW {
+    background-color: #ff968a;
+}
+
+.DIW {
+    background-color: #ffc5bf;
+}
+
+.ITGS {
+    background-color: #55cbcd;
+}
+
+.EIE {
+    background-color: #abdee6;
+}
