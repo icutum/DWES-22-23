@@ -32,14 +32,16 @@
         <?php next($productos); } ?>
     </table>
     <input type="submit" value="Generar factura">
-<?php }
+<?php reset($productos); }
+
     if (isset($_GET) && $_GET != null) {
         generarFactura($productos);
     }
 
     function generarFactura($productos) {
-    reset($productos);
-    $precioTotalGeneral = 0;
+        $productosCompra = array_intersect($_GET, $productos);
+        $precioTotalGeneral = array();
+        // print_r($productosCompra);
 ?>
     <table>
         <tr>
@@ -48,26 +50,25 @@
             <th>Precio unitario</th>
             <th>Precio total</th>
         </tr>
-        <?php for ($i = 0; $i < sizeof($_GET); $i++) { 
-            if ($_GET[key($productos)] > 0) { ?>
-                <tr>
-                    <?php
-                        $nombre = key($productos);
-                        $cantidad = $_GET[key($productos)];
-                        $precioUnitario = $productos[$nombre];
-                        $precioTotal = $precioUnitario * $cantidad;
-                        $precioTotalGeneral += $precioTotal;
-                    ?>
-                    <td><?= $nombre ?></td>
-                    <td><?= $cantidad ?></td>
-                    <td><?= $precioUnitario ?></td>
-                    <td><?= $precioTotal ?></td>
-                </tr>
-            <?php } ?>    
-        <?php next($productos); } ?>
+        <?php for ($i = 0; $i < sizeof($productosCompra); $i++) { ?>
+            <tr>
+                <?php
+                    $nombre = key($productosCompra);
+                    $cantidad = $productosCompra[key($productosCompra)];
+                    $precioUnitario = $productos[key($productosCompra)];
+                    $precioTotal = $precioUnitario * $cantidad;
+
+                    array_push($precioTotalGeneral, $precioTotal);
+                ?>
+                <td><?= $nombre ?></td>
+                <td><?= $cantidad ?></td>
+                <td><?= $precioUnitario ?></td>
+                <td><?= $precioTotal ?></td>
+            </tr>
+        <?php next($productosCompra); } ?>
         <tr>
             <th colspan="3">TOTAL</th>
-            <th><?= $precioTotalGeneral ?></th>
+            <th><?= array_sum($precioTotalGeneral) ?></th>
         </tr>
 <?php } ?>
 
