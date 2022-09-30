@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
+    height: 100vh;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 500px;
+}
+
+caption {
+    margin-bottom: 10px;
+}
+
+th, td {
+    padding: 5px;
+    border: 1px solid black;
+}
+
+input[type=number] {
+    width: 100%;
+}
+
+input[type=submit] {
+    width: 500px;
+    padding: 10px;
+}
+
+.precio {
+    text-align: right;
+}
