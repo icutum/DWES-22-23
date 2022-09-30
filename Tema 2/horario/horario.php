@@ -18,14 +18,14 @@
             ?>
                 <tr>
                     <th><?= $diaSemana // Imprime cada día de la semana ?></th>
-            <?php            
+            <?php
                 $numModulos = count($h[key($h)]);
                 for ($j = 0; $j < $numModulos; $j++) {
                     if ($j == $numModulos / 2) { // Si el bucle llega a la mitad de los módulos, imprime una celda que sea el recreo
             ?>
                         <td>Recreo</td>
                 <?php }
-                    $modulo = $h[key($h)][$j]; // Pillamos cada módulo 
+                    $modulo = $h[key($h)][$j]; // Pillamos cada módulo
                 ?>    
                     <td class="<?= $modulo ?>"><?= $modulo // Imprime cada módulo ?></td>
                 <?php } ?>
@@ -37,7 +37,7 @@
 <?php } ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
