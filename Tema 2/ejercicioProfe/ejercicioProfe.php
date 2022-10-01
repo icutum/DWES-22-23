@@ -9,10 +9,9 @@
         ["Amparo", 0]
     ];
 
-    array_walk($personas, function($valor, $clave) {
-        $personas[$clave] = ($valor[1] ? "Señor " : "Señora ") . $valor[0];
-        echo $personas[$clave];
-    });
+    $resultado = array_map(function($array) {
+        return ($array[1] ? "Señor " : "Señora ") . $array[0];
+    }, $personas);
 
     /**
      * Ejercicio 2
@@ -24,8 +23,18 @@
     ];
 
     $totalCalorias = array_reduce($comida, function($total, $calorias) {
-        $total += $calorias[1] * $calorias[2];
-        return $total;
+        return $total += $calorias[1] * $calorias[2];
+    });
+
+    /**
+     * Ejercicio 3
+     */
+    $listadoHombres = array_filter($personas, function($array) {
+        return $array[1];
+    });
+
+    $listadoMujeres = array_filter($personas, function($array) {
+        return !$array[1];
     });
 ?>
 
@@ -38,8 +47,9 @@
     <title>Document</title>
 </head>
 <body>
-    <p><?= ($personas) ?></p>
+    <p><?= print_r($resultado) ?></p>
     <p>El total de calorías es: <?= $totalCalorias ?></p>
-    <p></p>
+    <p>Los hombres son: <?= print_r($listadoHombres) ?></p>
+    <p>Las mujeres son: <?= print_r($listadoMujeres) ?></p>
 </body>
 </html>
