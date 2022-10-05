@@ -82,11 +82,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIsta de la compra</title>
+    <title>Lista de la compra</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    <form action="enunciado.php" method="get">
+    <form action="ejercicio5.php" method="get">
         <?php imprimirLista($productos); ?>
         <?php generarFactura($productos); ?>
     </form>

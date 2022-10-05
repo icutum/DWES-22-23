@@ -1,5 +1,23 @@
 <?php
     /**
+     * También se puede utilizar array_walk_recursive
+     * En este caso en concreto, pienso que es mejor
+     * hacerlo así ya que con array_walk_recursive
+     * muestra el 0/1 de cada persona en el ejercicio 3
+     */
+
+    function mostrarArray($array) {
+        array_walk($array, function($valor) {
+            if (is_array($valor)) { ?>
+                <p><?= $valor[0] ?></p>
+            <?php } else { ?>
+                <p><?= $valor ?></p>
+            <?php }
+            }
+        );
+    }
+
+    /**
      *  Ejercicio 1
      */       
     $personas = [
@@ -44,12 +62,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ejercicios Jorge</title>
 </head>
 <body>
-    <p><?= print_r($resultado) ?></p>
-    <p>El total de calorías es: <?= $totalCalorias ?></p>
-    <p>Los hombres son: <?= print_r($listadoHombres) ?></p>
-    <p>Las mujeres son: <?= print_r($listadoMujeres) ?></p>
+    <h2>Formalidad</h2>
+    <?= mostrarArray($resultado) ?>
+    <h2>El total de calorías es:</h2>
+    <?= $totalCalorias ?>
+    <h2>Los hombres son:</h2>
+    <?= mostrarArray($listadoHombres) ?>
+    <h2>Las mujeres son:</h2>
+    <?= mostrarArray($listadoMujeres) ?>
 </body>
 </html>
