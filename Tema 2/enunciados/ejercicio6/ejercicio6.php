@@ -23,7 +23,10 @@
 
     ?> <br> <?php
 
-    array_push($inicio, $final);
+    foreach ($final as $valor) {
+        array_push($inicio, $valor);
+    }
+
     print_r($inicio);
 ?>
 
