@@ -66,6 +66,16 @@
         $edades[$i] == 26 ? $edades[$i] = $mayor : $edades[$i];
     }
     print_r($edades);
+
+    ?> <br> <?php
+
+    // in_array
+    function encontrarValor($array, $valor, $error) {
+        echo (in_array($valor, $array) ? "El valor $valor se encuentra en la posición " . array_search($valor, $array) + 1 : $error) . "<br>";
+    }
+
+    encontrarValor($edades, 29, "Este valor no existe en el array indicado");
+    encontrarValor($edades, 99, "Este valor no existe en el array indicado");
 ?>
 
 <!DOCTYPE html>
