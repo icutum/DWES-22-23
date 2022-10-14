@@ -84,6 +84,78 @@
     $arrayAleatorio2 = aleatorio(5);
     $arrayAleatorio3 = aleatorio(5, 50);
     $arrayAleatorio4 = aleatorio(5, 50, -50);
+
+    // Ejercicio 11
+    function distintosTipos(array &$valores) {
+        $elevado = 2;
+
+        foreach ($valores as &$valor) {
+            switch (true) {
+                case is_int($valor):
+                    $valor = pow($valor, $elevado);
+                    $elevado++;
+
+                    break;
+                case is_float($valor) == "float":
+                    $valor >= 0 ? $valor *= -1 : $valor = abs($valor);
+
+                    break;
+
+                case is_string($valor) == "string":
+                    /**
+                     * Compara a nivel de bit si es mayúscula/minúscula
+                     * y lo invierte teniendo en cuenta el valor original
+                     * mediante una puerta lógica XOR (^)
+                     */
+                    $valor = strtolower($valor) ^ strtoupper($valor) ^ $valor;
+
+                    break;
+            }
+        }
+    }
+
+    $arrayValores = ["hOLA", "aDiOs", 2, 3, 4, 0.1, -0.1];
+    distintosTipos($arrayValores);
+
+    // Ejercicio 12
+    $yo = [
+        "nombre" => "Mario",
+        "dirección" => "Calle falsa número 1234",
+        "teléfono" => "91 123 45 67",
+        "población" => "Madrid",
+        "edad" => 20,
+    ];
+
+    function crearFormulario(array $datos) { ?>
+        <form method="POST">
+            <?php array_walk($datos, function($valor, $clave) {
+                switch (true) {
+                    case is_int($valor): ?>
+                            <input type="number" value="<?= $valor ?>">
+                        <?php break;
+
+                    case is_string($valor): ?>
+                            <input type="text" value="<?= $valor ?>">
+                        <?php break;
+                }
+            }) ?>
+        </form>
+    <?php }
+
+    // Ejercicio 13
+    $opciones = [
+        "Madrid" => 28,
+        "Sevilla" => 17,
+        "Cáceres" => 56,
+    ];
+
+    function generarSelect(array $opciones, int $seleccionado = -1) { ?>
+        <select>
+            <?php foreach ($opciones as $clave => $valor) : ?>
+                <option <?= $valor == $seleccionado ? "selected" : "" ?> value="<?= $valor ?>"><?= $clave ?></option>
+            <?php endforeach; ?>
+        </select>
+    <?php }
 ?>
 
 <!DOCTYPE html>
@@ -123,5 +195,15 @@
     <p><?= print_r($arrayAleatorio2) ?></p>
     <p><?= print_r($arrayAleatorio3) ?></p>
     <p><?= print_r($arrayAleatorio4) ?></p>
+
+    <h2>Array con distintos tipos de valores</h2>
+    <p><?= print_r($arrayValores) ?></p>
+
+    <h2>Crear formulario</h2>
+    <?= crearFormulario($yo); ?>
+
+    <h2>Crear select</h2>
+    <?= generarSelect($opciones) ?>
+    <?= generarSelect($opciones, 17) ?>
 </body>
 </html>
