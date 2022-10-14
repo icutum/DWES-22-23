@@ -58,6 +58,32 @@
 
         print_r($array);
     }
+
+    // Ejercicio 9
+    $a = 5;
+    $b = 20;
+
+    function intercambiarValores(mixed &$valor1, mixed &$valor2) {
+        $aux = $valor1;
+        $valor1 = $valor2;
+        $valor2 = $aux;
+    }
+
+    // Ejercicio 10;
+    function aleatorio(int $nValores = 10, int $valorMaximo = 10, int $valorMinimo = 0): array {
+        $array = [];
+
+        for ($i = 0; $i < $nValores; $i++) { 
+            $array[$i] = mt_rand($valorMinimo, $valorMaximo);
+        }
+
+        return $array;
+    }
+
+    $arrayAleatorio1 = aleatorio();
+    $arrayAleatorio2 = aleatorio(5);
+    $arrayAleatorio3 = aleatorio(5, 50);
+    $arrayAleatorio4 = aleatorio(5, 50, -50);
 ?>
 
 <!DOCTYPE html>
@@ -83,5 +109,19 @@
 
     <h2>Generar array asociativo</h2>
     <?= generarArray(3, "h", 'hola', [1,2,3], [1], "h") ?>
+
+    <h2>Intercambiar valores</h2>
+    <p>El valor de "a" antes: <?= $a ?></p>
+    <p>El valor de "b" antes: <?= $b ?></p>
+    <?= intercambiarValores($a, $b) ?>
+    <hr>
+    <p>El valor de "a" después: <?= $a ?></p>
+    <p>El valor de "b" después: <?= $b ?></p>
+
+    <h2>Array aleatorio con parámetros opcionales</h2>
+    <p><?= print_r($arrayAleatorio1) ?></p>
+    <p><?= print_r($arrayAleatorio2) ?></p>
+    <p><?= print_r($arrayAleatorio3) ?></p>
+    <p><?= print_r($arrayAleatorio4) ?></p>
 </body>
 </html>
