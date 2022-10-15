@@ -6,7 +6,7 @@
     $z = mt_rand(0, 20);
 
     // Ejercicio 6
-    function sumarNumerosEntre(int $inicio, int $final) {
+    function sumarNumerosEntre(int $inicio, int $final): void {
         $aux = 0;
         $total = 0;
 
@@ -28,7 +28,7 @@
     <?php }
 
     // Ejercicio 7
-    function concatenar(string $separador, string ...$palabras) {
+    function concatenar(string $separador, string ...$palabras): void {
         $frase = "";
 
         foreach ($palabras as $clave => $palabra) {
@@ -45,7 +45,7 @@
     <?php }
 
     // Ejercicio 8
-    function generarArray(mixed ...$parametros) {
+    function generarArray(mixed ...$parametros): void {
         $array = [];
 
         foreach ($parametros as $parametro) {
@@ -63,7 +63,7 @@
     $a = 5;
     $b = 20;
 
-    function intercambiarValores(mixed &$valor1, mixed &$valor2) {
+    function intercambiarValores(mixed &$valor1, mixed &$valor2): void {
         $aux = $valor1;
         $valor1 = $valor2;
         $valor2 = $aux;
@@ -86,7 +86,7 @@
     $arrayAleatorio4 = aleatorio(5, 50, -50);
 
     // Ejercicio 11
-    function distintosTipos(array &$valores) {
+    function distintosTipos(array &$valores): void {
         $elevado = 2;
 
         foreach ($valores as &$valor) {
@@ -96,12 +96,12 @@
                     $elevado++;
 
                     break;
-                case is_float($valor) == "float":
+                case is_float($valor):
                     $valor >= 0 ? $valor *= -1 : $valor = abs($valor);
 
                     break;
 
-                case is_string($valor) == "string":
+                case is_string($valor):
                     /**
                      * Compara a nivel de bit si es mayúscula/minúscula
                      * y lo invierte teniendo en cuenta el valor original
@@ -126,7 +126,7 @@
         "edad" => 20,
     ];
 
-    function crearFormulario(array $datos) { ?>
+    function crearFormulario(array $datos): void { ?>
         <form method="POST">
             <?php array_walk($datos, function($valor, $clave) {
                 switch (true) {
@@ -149,7 +149,7 @@
         "Cáceres" => 56,
     ];
 
-    function generarSelect(array $opciones, int $seleccionado = -1) { ?>
+    function generarSelect(array $opciones, int $seleccionado = -1): void { ?>
         <select>
             <?php foreach ($opciones as $clave => $valor) : ?>
                 <option <?= $valor == $seleccionado ? "selected" : "" ?> value="<?= $valor ?>"><?= $clave ?></option>
