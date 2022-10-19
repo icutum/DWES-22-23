@@ -100,7 +100,6 @@
                     $valor >= 0 ? $valor *= -1 : $valor = abs($valor);
 
                     break;
-
                 case is_string($valor):
                     /**
                      * Compara a nivel de bit si es mayúscula/minúscula
@@ -131,11 +130,11 @@
             <?php array_walk($datos, function($valor, $clave) {
                 switch (true) {
                     case is_int($valor): ?>
-                            <input type="number" value="<?= $valor ?>">
+                            <input type="number" name="<?= $clave ?>" value="<?= $valor ?>">
                         <?php break;
 
                     case is_string($valor): ?>
-                            <input type="text" value="<?= $valor ?>">
+                            <input type="text" name="<?= $clave ?>" value="<?= $valor ?>">
                         <?php break;
                 }
             }) ?>
