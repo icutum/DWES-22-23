@@ -1,11 +1,15 @@
 <?php
     class CuentaBancaria {
-        private $numeroCuenta = 100001;
+        private static $uuid = 100001;
+        private $numeroCuenta;
         private $nombre;
         private $saldo;
 
         public function __construct(string $nombre = "anonimo", float $saldo = 0) {
-            $this->numeroCuenta++;
+            $this->numeroCuenta = CuentaBancaria::$uuid;
+            CuentaBancaria::$uuid++;
+            $this->nombre = $nombre;
+            $this->saldo = $saldo;
         }
 
         public function ingresarDinero(int $cantidad): void {
@@ -20,7 +24,7 @@
             return $this->saldo;
         }
 
-        public function transferir(CuentaBancaria $cuenta, int $cantidad): void {
+        public function transferir(CuentaBancaria $cuenta, float $cantidad): void {
             $this->saldo -= $cantidad;
             $cuenta->saldo += $cantidad;
         }
@@ -28,7 +32,7 @@
         public function unir(CuentaBancaria $cuenta): void {
             $this->saldo += $cuenta->saldo;
             $cuenta->numeroCuenta = -1;
-            $cuenta->saldo = 0;
+            $cuenta->bancarrota();
         }
 
         public function bancarrota(): void {
@@ -37,10 +41,12 @@
 
         public function mostrar(): void { ?>
             <div id="<?= $this->numeroCuenta; ?>">
-                <p>Número de cuenta <b><?= $this->nombre; ?></b></p>
+                <p>Número de cuenta <b><?= $this->numeroCuenta; ?></b></p>
                 <p>Nombre del propietario: <?= $this->nombre; ?></p>
                 <p>Saldo: <?= $this->saldo; ?></p>
             </div>
+            <br>
+            <hr>
         <?php }
     }
 ?>
