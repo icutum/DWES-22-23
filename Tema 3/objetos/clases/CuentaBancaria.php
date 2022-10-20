@@ -1,13 +1,11 @@
 <?php
     class CuentaBancaria {
-        private static $uuid = 100001;
-        private $numeroCuenta;
+        private static $numeroCuenta = 100001;
         private $nombre;
         private $saldo;
 
         public function __construct(string $nombre = "anonimo", float $saldo = 0) {
-            $this->numeroCuenta = CuentaBancaria::$uuid;
-            CuentaBancaria::$uuid++;
+            $this->numeroCuenta = self::$numeroCuenta++;
             $this->nombre = $nombre;
             $this->saldo = $saldo;
         }
