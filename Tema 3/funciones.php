@@ -155,6 +155,41 @@
             <?php endforeach; ?>
         </select>
     <?php }
+
+    // Ejercicio 14
+    $cosas = [
+        3,
+        "frutas"  => ["a" => "naranja", "b" => [1, 2], "c" => "manzana"],
+        "números" => [1, 2, 3, 4, 5, 6],
+        "hoyos"   => ["primero", 5 => "segundo", "tercero"],
+        "asd"
+    ];
+
+    function imprimirArrayRecursivo(array $array, int $tabulaciones = 0): void {
+        $tab = "";
+        for ($i = 0; $i < $tabulaciones; $i++) { 
+            $tab .= "_";
+        }
+
+        foreach ($array as $clave => $valor) {
+            if (is_array($valor)) { 
+                ?> <p><b><?= $tab . "array" ?></b></p> <?php 
+            
+                imprimirArrayRecursivo($valor, ($tabulaciones + 3));
+            } else {
+                ?> <p><?= $tab . $valor ?></p> <?php
+            }
+        }
+    }
+
+    // Ejercicio 15
+    function invertirCadenaRecursivo(string $str, int $i = -1): string {
+        if (empty($str[$i])) {
+            return "";
+        }
+        ?> <span><?= $str[$i] ?></span> <?php
+        return invertirCadenaRecursivo($str, $i - 1);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -204,5 +239,12 @@
     <h2>Crear select</h2>
     <?= generarSelect($opciones) ?>
     <?= generarSelect($opciones, 17) ?>
+
+    <h2>Imprimir array recursivo</h2>
+    <?= imprimirArrayRecursivo($cosas) ?>
+
+    <h2>Imprimir cadena invertida recursivo</h2>
+    <p><?= invertirCadenaRecursivo("Manolo") ?></p>
+    <?= gettype("manolo"[10]) ?>
 </body>
 </html>
