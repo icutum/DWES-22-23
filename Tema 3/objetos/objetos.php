@@ -2,6 +2,9 @@
     // Require
     require("./clases/Circulo.php");
     require("./clases/CuentaBancaria.php");
+    require("./clases/Coche.php");
+    require("./clases/CocheConRemolque.php");
+    require("./clases/CocheGrua.php");
 
     // Ejercicio 1
     $circulo = new Circulo();
@@ -35,6 +38,26 @@
         /**
          * En el HTML
          */
+
+    // Ejercicio 3
+    $coches = [];
+
+        // Creación de coches
+        $bmw = new Coche("1000", "BMW", 30);
+        $renaultRemolque = new CocheConRemolque("1001", "Renault", 30, 200);
+        $porsche = new Coche("1002", "Porsche", 40);
+        $renaultGrua = new CocheGrua("1003", "Renault", 20);
+
+        // Carga de coche
+        $renaultGrua->cargar($porsche);
+
+        // Meter los coches en un array
+        $coches = [$bmw, $renaultRemolque, $renaultGrua];
+
+        // Mostrar toda la información
+        /**
+         * En el HTML
+         */
 ?>
 
 <!DOCTYPE html>
@@ -60,5 +83,10 @@
     <p><?= $milloneti->mostrar(); ?></p>
     <p><?= $agapito->mostrar(); ?></p>
     <p><?= $pobreton->mostrar(); ?></p>
+
+    <h2>Coche, Coche con remolque y Grúa</h2>
+    <?php array_walk($coches, function($coche) {
+        $coche->pintarInformacion();
+    }) ?>
 </body>
 </html>
