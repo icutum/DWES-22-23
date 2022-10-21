@@ -1,10 +1,17 @@
 <?php
     // Require
-    require("./clases/Circulo.php");
-    require("./clases/CuentaBancaria.php");
-    require("./clases/Coche.php");
-    require("./clases/CocheConRemolque.php");
-    require("./clases/CocheGrua.php");
+        // 1
+        require("./clases/Circulo.php");
+        // 2
+        require("./clases/CuentaBancaria.php");
+        // 3
+        require("./clases/Coche.php");
+        require("./clases/CocheConRemolque.php");
+        require("./clases/CocheGrua.php");
+        // 4
+        require("./clases/Usuario.php");
+        require("./clases/UsuarioPremium.php");
+        require("./clases/UsuarioAdmin.php");
 
     // Ejercicio 1
     $circulo = new Circulo();
@@ -58,6 +65,12 @@
         /**
          * En el HTML
          */
+
+    // Ejercicio 4
+    $mario = new Usuario("Mario", "Sánchez", "Voleibol");
+    $jovani = new UsuarioPremium("Jovani", "Vázquez", "Baloncesto");
+    $manolo = new UsuarioAdmin("Manolo", "Lama", "Fútbol")
+
 ?>
 
 <!DOCTYPE html>
@@ -88,5 +101,33 @@
     <?php array_walk($coches, function($coche) {
         $coche->pintarInformacion();
     }) ?>
+
+    <h2>Clase usuario</h2>
+    <?=
+        $mario->introducirResultado("victoria");
+        $mario->introducirResultado("victoria");
+        $mario->introducirResultado("victoria");
+        $mario->introducirResultado("victoria");
+        $mario->introducirResultado("victoria");
+        $mario->introducirResultado("victoria");
+        $mario->introducirResultado("derrota");
+        $mario->introducirResultado("empate");
+        $mario->imprimirInformación();
+
+        $jovani->introducirResultado("derrota");
+        $jovani->introducirResultado("derrota");
+        $jovani->introducirResultado("victoria");
+        $jovani->introducirResultado("victoria");
+        $jovani->introducirResultado("victoria");
+        $jovani->imprimirInformación();
+
+        $manolo->introducirResultado("derrota");
+        $manolo->introducirResultado("victoria");
+        $manolo->introducirResultado("derrota");
+        $manolo->introducirResultado("victoria");
+        $manolo->introducirResultado("victoria");
+        $manolo->introducirResultado("derrota");
+        $manolo->imprimirInformación();
+    ?>
 </body>
 </html>
