@@ -51,15 +51,18 @@
 
         // Creación de coches
         $bmw = new Coche("1000", "BMW", 30);
-        $renaultRemolque = new CocheConRemolque("1001", "Renault", 30, 200);
+        $renault = new CocheConRemolque("1001", "Renault", 30, 200);
         $porsche = new Coche("1002", "Porsche", 40);
-        $renaultGrua = new CocheGrua("1003", "Renault", 20);
+        $ford = new CocheGrua("1003", "Ford", 20);
+        $nissan = new CocheConRemolque("1005", "Nissan", 22, 250);
+        $kia = new CocheGrua("1007", "Kia", 30);
 
-        // Carga de coche
-        $renaultGrua->cargar($porsche);
+        // Carga de coches
+        $ford->cargar($porsche);
+        $kia->cargar($nissan);
 
         // Meter los coches en un array
-        $coches = [$bmw, $renaultRemolque, $renaultGrua];
+        $coches = [$bmw, $renault, $ford, $kia];
 
         // Mostrar toda la información
         /**
