@@ -72,8 +72,7 @@
     // Ejercicio 4
     $mario = new Usuario("Mario", "Sánchez", "Voleibol");
     $jovani = new UsuarioPremium("Jovani", "Vázquez", "Baloncesto");
-    $manolo = new UsuarioAdmin("Manolo", "Lama", "Fútbol")
-
+    $manolo = new UsuarioAdmin("Manolo", "Lama", "Fútbol");
 ?>
 
 <!DOCTYPE html>
@@ -107,6 +106,7 @@
 
     <h2>Clase usuario</h2>
     <?=
+        $mario->introducirResultado("victoria");
         $mario->introducirResultado("victoria");
         $mario->introducirResultado("victoria");
         $mario->introducirResultado("victoria");

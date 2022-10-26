@@ -1,14 +1,14 @@
 <?php
     class Usuario {
-        protected static $numPartidos = 6;
+        protected $numPartidos = 6;
         protected const NIVEL_MIN = 0;
         protected const NIVEL_MAX = 6;
 
-        protected $nombre;
-        protected $apellidos;
-        protected $deporte;
-        protected $nivel;
-        protected $partidos;
+        protected string $nombre;
+        protected string $apellidos;
+        protected string $deporte;
+        protected int $nivel;
+        protected array $partidos;
 
         public function __construct(string $nombre, string $apellidos, string $deporte) {
             $this->nombre = $nombre;
@@ -34,23 +34,17 @@
                     <p><?= $this->nombre ?> gana el partido.</p>
                     <?php break;
             }
-            
-            $partidosSeguidos = true;
+
             $ultimosPartidos = 
-                array_values( // Reinicia los índices
+                array_count_values( // Cuenta los valores
                     array_slice( // Extrae los últimos 6 partidos
                         $this->partidos,
-                        sizeof($this->partidos) - self::$numPartidos
+                        sizeof($this->partidos) - $this->numPartidos
                     )
-                );
+                )
+            ;
 
-            for ($i = 0; $partidosSeguidos && $i < sizeof($ultimosPartidos); $i++) {
-                if ($ultimosPartidos[$i] != $resultado) {
-                    $partidosSeguidos = false;
-                }
-            }
-
-            if ($partidosSeguidos && sizeof($this->partidos) >= self::$numPartidos) {
+            if ($ultimosPartidos[$resultado] == $this->numPartidos) {
                 switch ($resultado) {
                     case "derrota":
                         if ($this->nivel > self::NIVEL_MIN) $this->nivel--;
@@ -100,6 +94,7 @@
                         </li>
                     </ul>
                 </li>
-            </ul> <?php }
+            </ul> <?php
+        }
     }
 ?>
