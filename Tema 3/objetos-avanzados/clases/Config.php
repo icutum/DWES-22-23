@@ -3,13 +3,13 @@
         private string $nombre;
         private static Config $instancia;
 
-        private function __construct(string $nombre) {
-            $this->nombre = $nombre;
+        private function __construct() {
+
         }
 
-        public static function crearInstancia(string $nombre): Config {
+        public static function crearInstancia(): Config {
             if (!isset(self::$instancia)) {
-                self::$instancia = new Config($nombre);
+                self::$instancia = new Config();
             }
             return self::$instancia;
         }

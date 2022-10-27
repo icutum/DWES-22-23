@@ -6,14 +6,23 @@
         // Interfaces
         require("./interfaces/PlataformaPago.php");
         require("./clases/BancoMalvado.php");
+        require("./clases/BitcoinConan.php");
+        require("./clases/BancoMaloMalisimo.php");
 
     // Singleton
-        $config = Config::crearInstancia("Jason");
-        $config->setNombre("Mario");
+        $config = Config::crearInstancia();
+        $config->setNombre("Jason");
+        $config2 = Config::crearInstancia();
+        $config2->setNombre("Mario");
         echo $config->getNombre();
+        echo $config2->getNombre();
 
     // Interfaces
-        $banco = new BancoMalvado();
+        $bancoMalvado = new BancoMalvado();
+        $bancoBitcoin = new BitcoinConan();
+        $bancoMaloMalisimo = new BancoMaloMalisimo();
+
+        $bancos = [$bancoMalvado, $bancoBitcoin, $bancoMaloMalisimo];
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +35,16 @@
 </head>
 <body>
     <h2>Interfaces</h2>
-    <?= $banco->establecerConexion(); ?>
-    <?= $banco->compruebaSeguridad(); ?>
-    <?= $banco->pagar("Mario", 800); ?>
+    <h3>Banco Malvado</h3>
+    <?= $bancoMalvado->establecerConexion(); ?>
+    <?= $bancoMalvado->compruebaSeguridad(); ?>
+    <?= $bancoMalvado->pagar("Mario", 800); ?>
+
+    <h3>Pagos aleatorios</h3>
+    <?php
+        for($i = 0; $i < sizeof($bancos); $i++) { ?>
+            <p><?= $bancos[rand(0, sizeof($bancos) - 1)]->pagar("Mario", 800); ?></p>
+        <?php }
+    ?>
 </body>
 </html>
