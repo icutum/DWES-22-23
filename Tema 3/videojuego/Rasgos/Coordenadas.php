@@ -1,4 +1,6 @@
 <?php
+    namespace Rasgos;
+
     trait Coordenadas {
         private int $x;
         private int $y;

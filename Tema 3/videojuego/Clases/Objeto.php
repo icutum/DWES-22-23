@@ -1,6 +1,8 @@
 <?php
+    namespace Clases;
+
     class Objeto {
-        use Descripcion, Coordenadas;
+        use \Rasgos\Descripcion, \Rasgos\Coordenadas;
         private float $peso;
 
         public function getPeso(): float {

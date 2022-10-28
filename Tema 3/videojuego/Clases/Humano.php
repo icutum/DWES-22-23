@@ -1,6 +1,8 @@
 <?php
-    class Humano implements Personaje {
-        use Coordenadas;
+    namespace Clases;
+
+    class Humano implements \Interfaces\Personaje {
+        use \Rasgos\Coordenadas;
 
         public function atacar(): string {
             return "Puñetazo";

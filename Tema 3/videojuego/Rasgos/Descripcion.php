@@ -1,4 +1,6 @@
 <?php
+    namespace Rasgos;
+
     trait Descripcion {
         private string $descripcion;
 

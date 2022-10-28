@@ -1,6 +1,8 @@
 <?php
-    abstract class Mago implements Personaje {
-        use Coordenadas;
+    namespace Clases;
+
+    abstract class Mago implements \Interfaces\Personaje {
+        use \Rasgos\Coordenadas;
 
         public abstract function atacar(): string;
 
