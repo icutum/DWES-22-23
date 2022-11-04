@@ -1,5 +1,7 @@
 <?php
     $datos = file_get_contents("temazos.csv");
+    $datos = explode(";", $datos);
+    array_pop($datos);
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +18,7 @@
             <th>Canción</th>
             <th>Hora</th>
         </tr>
-        <?php foreach (explode(";", $datos) as $dato) : ?>
+        <?php foreach ($datos as $dato) : ?>
             <tr>
                 <?php foreach (explode(",", $dato) as $info) : ?>
                     <td><?= $info ?></td>
