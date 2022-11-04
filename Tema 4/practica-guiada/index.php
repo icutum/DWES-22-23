@@ -4,7 +4,8 @@
 
     // Variables del formulario
     $theme = "";
-    $date = date("H:i");
+    $date = $_POST["date"];
+    // $date establecida al valor de $_POST["date"] para hacer la comprobación de que sea mayor/menor que la hora actual
 
     $actualDate = date("H:i");
 
@@ -17,13 +18,16 @@
         if (!empty($_POST["theme"])) {
             $theme = $_POST["theme"];
         } else {
-            $errores["theme"] = ["No puede estar vacío"];
+            $errores["theme"] = ["El tema no puede estar vacío"];
         }
 
         if (!empty($_POST["date"])) {
-            $date = $_POST["date"];
+            if (strtotime($date) - strtotime($actualDate) < 0) {
+                $errores["date"] = ["La hora no puede ser inferior a la actual"];
+                $date = date("H:i");
+            }
         } else {
-            $errores["date"] = ["No puede estar vacío"];
+            $errores["date"] = ["La hora no puede estar vacía"];
         }
 
         if (count($errores) == 0) {
