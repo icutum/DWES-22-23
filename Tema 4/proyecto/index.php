@@ -1,5 +1,23 @@
 <?php
+    spl_autoload_register(function($clase) {
+        $ruta = "./";
+        $archivo = str_replace('\\', '/', $clase);
+        echo "$ruta${archivo}.php | Acuérdate de eliminar esto cuando terminemos de debuggear equisde" . "<br>";
+        require("$ruta${archivo}.php");
+    });
 
+    $config = Classes\StudentManager::singleton();
+    $errors = [];
+
+    if (isset($_POST["submit"])) {
+        // Controlar errores con el hadouken de if/else
+
+        if (count($errors) == 0) {
+            // Guardar
+            // header("Location: list.php");
+            // exit();
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -75,10 +93,20 @@
                         Teléfono:
                         <input class="form__input" type="number" name="telephone" min="600000000" max="999999999" value="" placeholder="Tu puto número para saber a quién llamar a la hora que más te joda">
                     </label>
+                    <label class="form__label">
+                        Curso:
+                        <select class="form__input" name="grade">
+                            <option value="gm1">1º Grado Medio</option>
+                            <option value="gm2">2º Grado Medio</option>
+                            <option value="gs1">1º Grado Superior</option>
+                            <option value="gs2">2º Grado Superior</option>
+                        </select>
+                    </label>
                 </fieldset>
             </div>
             
             <input class="form__submit" type="submit" value="Enviar" name="submit">
+            <a class="form__submit" href="list.php">Ver alumnos</a>
         </form>
     </main>
 </body>
