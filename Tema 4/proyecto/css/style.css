@@ -9,6 +9,7 @@
 
 :root {
     --clr-primary: #3ebccb;
+    --clr-primary-dark: #27838d;
 }
 
 html {
@@ -46,14 +47,25 @@ body {
     padding: 0 5rem;
 }
 
+.form {
+    width: 100%;
+}
+
+.form__flex {
+    display: flex;
+    gap: 5rem;
+}
+
 .form__title {
+    margin-bottom: 2.5rem;
     font-size: 2.4rem;
-    color: var(--clr-primary);
+    color: var(--clr-primary-dark);
 }
 
 .form__fieldset {
     padding: 1rem 0;
     border-radius: 1rem;
+    width: 50%;
 }
 
 .form__fieldset > * {
@@ -62,7 +74,7 @@ body {
 
 .form__fieldset-title {
     margin-left: 1rem;
-    color: var(--clr-primary);
+    color: var(--clr-primary-dark);
 }
 
 .form__label,
@@ -81,7 +93,7 @@ body {
 .form__input:not(.form__input--radio) {
     width: 100%;
     padding: 0.25em 0.5em;
-    border: 1px solid gray;
+    border: 1px solid var(--clr-primary);
     border-radius: 1rem;
 }
 
@@ -92,4 +104,22 @@ body {
 .form__input--radio {
     display: inline;
     accent-color: var(--clr-primary);
+}
+
+.form__submit {
+    margin-top: 5rem;
+    padding: 0.25em;
+    width: 100%;
+    background-color: var(--clr-primary);
+    color: white;
+    font-size: 2.4rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 1rem;
+    transition: background-color 0.3s;
+}
+
+.form__submit:hover {
+    background-color: var(--clr-primary-dark);
+    cursor: pointer;
 }
