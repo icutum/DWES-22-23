@@ -40,7 +40,7 @@
 
             } else {
                 // Si no existe el archivo, lo crea
-                self::$list = file_put_contents("list.csv","",FILE_APPEND);    
+                self::$list[] = file_put_contents("list.csv","",FILE_APPEND);    
             }
 
             return self::$list;

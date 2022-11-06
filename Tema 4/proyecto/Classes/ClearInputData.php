@@ -12,15 +12,13 @@
         // [type=password]
         const PASSWORD = "^[\w]{8,}$";
 
-        function cleanData(mixed $data, string $regex): mixed {
-            function cleanData(mixed $data, string $regex = STRING): mixed {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
-    
-                if (preg_match($regex, $data)) return $data;
-                return null;
-            }
+        function cleanData(mixed $data, string $regex = STRING): mixed {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
+
+            if (preg_match($regex, $data)) return $data;
+            return null;
         }
     }
 ?>
