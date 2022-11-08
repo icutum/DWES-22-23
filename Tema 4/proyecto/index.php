@@ -8,9 +8,70 @@
 
     $config = Classes\StudentManager::singleton();
     $errors = [];
+    $sysdate = date("Y");
+
+    echo Classes\ClearInputData::cleanData("hola");
 
     if (isset($_POST["submit"])) {
         // Controlar errores con el hadouken de if/else
+
+        if (!empty($POST_["name"])) {
+            $name = $_POST["name"];
+        } else {
+            $errors["name"] = ["El nombre no puede estar vacío"];
+        }
+
+        if (!empty($_POST["surname"])) {
+            $surname = $_POST["surname"];
+        } else {
+            $errors["surname"] = ["Los apellidos no pueden estar vacío"];
+        }
+
+        if (!empty($_POST["gender"])) {
+            $gender = $_POST["gender"];
+        } else {
+            $errors["gender"] = ["Falta sexo"];
+        }
+
+        if (!empty($_POST["birthdate"])) {
+            if ($_POST["birthdate"]) {
+                $birthdate = $_POST["birthdate"];
+            } else {
+                $errors["birthdate"] = ["Tienes que ser mayor de edad"];
+            }
+        } else {
+            $errors["birthdate"] = ["El cumpleaños no puede estar vacío"];
+        }
+
+        if (!empty($_POST["user"])) {
+            $user = $_POST["user"];
+        } else {
+            $errors["user"] = ["El usuario no puede estar vacío"];
+        }
+
+        if (!empty($_POST["password"])) {
+            $password = $_POST["password"];
+        } else {
+            $errors["password"] = ["La contraseña no puede estar vacía"];
+        }
+
+        if (!empty($_POST["mail"])) {
+            $mail = $_POST["mail"];
+        } else {
+            $errors["mail"] = ["El correo no puede estar vacío"];
+        }
+
+        if (!empty($_POST["phone"])) {
+            $phone = $_POST["phone"];
+        } else {
+            $errors["phone"] = ["El teléfono no puede estar vacío"];
+        }
+
+        if (!empty($_POST["grade"])) {
+            $grade = $_POST["grade"];
+        } else {
+            $errors["grade"] = ["El teléfono no puede estar vacío"];
+        }
 
         if (count($errors) == 0) {
             // Guardar
@@ -83,7 +144,7 @@
                     </label>
                     <label class="form__label">
                         Contraseña:
-                        <input class="form__input" type="password" name="password" value="" placeholder="La contraseña de mierda que le vas a poner a la cuenta">
+                        <input class="form__input" type="password" name="password" value="" placeholder="Da igual lo que pongas, la vamos a cambiar y no te vamos a decir nada">
                     </label>
                     <label class="form__label">
                         Correo:
@@ -91,7 +152,7 @@
                     </label>
                     <label class="form__label">
                         Teléfono:
-                        <input class="form__input" type="number" name="telephone" min="600000000" max="999999999" value="" placeholder="Tu puto número para saber a quién llamar a la hora que más te joda">
+                        <input class="form__input" type="number" name="phone" min="600000000" max="999999999" value="" placeholder="Tu puto número para saber a quién llamar a la hora que más te joda">
                     </label>
                     <label class="form__label">
                         Curso:

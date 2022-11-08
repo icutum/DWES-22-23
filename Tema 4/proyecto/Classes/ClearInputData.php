@@ -12,7 +12,8 @@
         // [type=password]
         const PASSWORD = "^[\w]{8,}$";
 
-        function cleanData(mixed $data, string $regex = STRING): mixed {
+        // Por algún motivo no pilla las flags
+        public static function cleanData(mixed $data, string $regex = STRING): mixed {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
