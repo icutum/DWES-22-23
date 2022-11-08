@@ -8,21 +8,26 @@
 
     $config = Classes\StudentManager::singleton();
     $errors = [];
-    $sysdate = date("Y");
-
-    echo Classes\ClearInputData::cleanData("hola");
 
     if (isset($_POST["submit"])) {
         // Controlar errores con el hadouken de if/else
 
         if (!empty($POST_["name"])) {
-            $name = $_POST["name"];
+            $name = Classes\ClearInputData::cleanData($_POST["name"]);
+
+            if (!isset($name)) {
+                $errors["name"] = ["El nombre tiene que tener de 2 a 25 caracteres"];
+            }
         } else {
             $errors["name"] = ["El nombre no puede estar vacío"];
         }
 
         if (!empty($_POST["surname"])) {
-            $surname = $_POST["surname"];
+            $surname = Classes\ClearInputData::cleanData($_POST["surname"]);
+
+            if (!isset($surname)) {
+                $errors["surname"] = ["Los apellidos tiene que tener de 2 a 25 caracteres"];
+            }
         } else {
             $errors["surname"] = ["Los apellidos no pueden estar vacío"];
         }
@@ -34,35 +39,47 @@
         }
 
         if (!empty($_POST["birthdate"])) {
-            if ($_POST["birthdate"]) {
-                $birthdate = $_POST["birthdate"];
-            } else {
-                $errors["birthdate"] = ["Tienes que ser mayor de edad"];
-            }
+            $birthdate = $_POST["birthdate"];
         } else {
             $errors["birthdate"] = ["El cumpleaños no puede estar vacío"];
         }
 
         if (!empty($_POST["user"])) {
-            $user = $_POST["user"];
+            $user = Classes\ClearInputData::cleanData($_POST["user"], Classes\ClearInputData::USER);
+
+            if (!isset($user)) {
+                $errors["user"] = ["El usuario tiene que tener de 3 a 15 caracteres"];
+            }
         } else {
             $errors["user"] = ["El usuario no puede estar vacío"];
         }
 
         if (!empty($_POST["password"])) {
-            $password = $_POST["password"];
+            $password = Classes\ClearInputData::cleanData($_POST["password"], Classes\ClearInputData::PASSWORD);
+
+            if (!isset($password)) {
+                $errors["password"] = ["La contraseña tiene que tener 8 caracteres mínimo"];
+            }
         } else {
             $errors["password"] = ["La contraseña no puede estar vacía"];
         }
 
         if (!empty($_POST["mail"])) {
-            $mail = $_POST["mail"];
+            $mail = Classes\ClearInputData::cleanData($_POST["mail"], Classes\ClearInputData::MAIL);
+            
+            if (!isset($mail)) {
+                $errors["mail"] = ["El mail no coincide con el regex"];
+            }
         } else {
             $errors["mail"] = ["El correo no puede estar vacío"];
         }
 
         if (!empty($_POST["phone"])) {
-            $phone = $_POST["phone"];
+            $phone = Classes\ClearInputData::cleanData($_POST["phone"], Classes\ClearInputData::PHONE);
+
+            if (!isset($phone)) {
+                $errors["phone"] = ["No coincide"];
+            }
         } else {
             $errors["phone"] = ["El teléfono no puede estar vacío"];
         }
@@ -75,8 +92,7 @@
 
         if (count($errors) == 0) {
             // Guardar
-            // header("Location: list.php");
-            // exit();
+            $alumno = new Classes\Alumno($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade);
         }
     }
 ?>

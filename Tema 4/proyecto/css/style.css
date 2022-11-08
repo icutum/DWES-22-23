@@ -21,6 +21,12 @@ body {
     font-family: 'Satoshi', sans-serif;
 }
 
+/* Utility classes */
+.success {
+    background-color: green;
+    color: white;
+}
+
 .header {
     margin-bottom: 5rem;
     display: flex;

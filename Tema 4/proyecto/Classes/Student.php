@@ -12,7 +12,7 @@
         private $grade;
         private $birthdate;
 
-        public function __construct($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate){
+        public function __construct($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade){
             $this->name = $name;
             $this->surname = $surname;
             $this->user = $user;
@@ -21,6 +21,8 @@
             $this->phone = $phone;
             $this->gender = $gender;
             $this->birthdate = $birthdate;
+
+            $this->saveAlumnos($this);
         }
 
         // Getters

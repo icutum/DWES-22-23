@@ -7,7 +7,6 @@
     });
 
     $config = Classes\StudentManager::singleton();
-    $config->fetchStudents();
 ?>
 
 <!DOCTYPE html>
@@ -22,9 +21,7 @@
     <table>
         <?php foreach ($config->fetchStudents() as $student) : ?>
             <tr>
-                <?php foreach ($student as $data) : ?>
-                    
-                <?php endforeach ?>
+                <?= $student ?> 
             </tr>
         <?php endforeach ?>
     </table>
