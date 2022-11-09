@@ -10,7 +10,7 @@
         // [type=mail]
         public const MAIL = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/"; // https://www.php.net/manual/en/function.filter-var.php
         // [type=password]
-        public const PASSWORD = "/^[\w]{8,}$/";
+        public const PASSWORD = "/^[\w]{8,64}$/";
 
         public static function cleanData(mixed $data, string $regex = self::STRING): mixed {
             $data = trim($data);

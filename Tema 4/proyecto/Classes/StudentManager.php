@@ -11,19 +11,8 @@
             }
             return self::$instance;
         }
-        
-        private function __construct() {
-            $this->fetchStudents();
-        }
 
         public function fetchStudents() {
-            // Se guarda en el array los contenidos del .csv suprimiendo los errores
-            // Reemplazado self::$list por $aux
-
-            // self::$list = @file_get_contents(
-            //     "list.csv"
-            // );
-
             $aux = @file_get_contents(
                 "list.csv"
             );
@@ -41,7 +30,7 @@
 
             } else {
                 // Si no existe el archivo, lo crea
-                self::$list[] = file_put_contents("list.csv","");    
+                self::$list = file_put_contents("list.csv","");    
             }
 
             return self::$list;
@@ -52,12 +41,12 @@
                 "list.csv",
                 $student->getName().",".
                 $student->getSurname().",".
-                $student->getGender().",".
-                $student->getBirthdate().",".
                 $student->getUser().",".
                 $student->getPassword().",".
                 $student->getMail().",".
                 $student->getPhone().",".
+                $student->getGender().",".
+                $student->getBirthdate().",".
                 $student->getGrade()."\n",
                 FILE_APPEND
             );
@@ -65,7 +54,7 @@
 
         static function printList() {
             foreach (self::$list as $alumno) {
-                echo @$alumno->__toString()."<br>";
+                echo @$alumno->__toString();
             }
         }
     }

@@ -19,9 +19,11 @@ html {
 body {
     font-size: 1.8rem;
     font-family: 'Satoshi', sans-serif;
-    /* No me quiero quedar ciego todavía */
-    background-color: #111;
-    color: #AAA;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 32px;
 }
 
 /* Utility classes */
@@ -138,4 +140,41 @@ body {
 .form__submit:hover {
     background-color: var(--clr-primary-dark);
     cursor: pointer;
+}
+
+/* List styles */
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: 0 auto;
+    padding: 25px;
+}
+
+.student-list {
+    border-collapse: collapse;
+    border: 2.5px solid var(--clr-primary-dark);
+}
+
+.student-list__caption {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 0 16px;
+    color: var(--clr-primary-dark);
+}
+
+.student-list__row,
+.student-list__column,
+.student-list__heading {
+    border: 1px solid black;
+}
+
+.student-list__column,
+.student-list__heading {
+    padding: 5px;
+}
+
+.student-list__heading {
+    background-color: lightgray;
+    font-weight: bold;
 }
