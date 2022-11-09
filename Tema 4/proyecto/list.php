@@ -2,7 +2,6 @@
     spl_autoload_register(function($clase) {
         $ruta = "./";
         $archivo = str_replace('\\', '/', $clase);
-        echo "$ruta${archivo}.php | Acuérdate de eliminar esto cuando terminemos de debuggear equisde" . "<br>";
         require("$ruta${archivo}.php");
     });
 

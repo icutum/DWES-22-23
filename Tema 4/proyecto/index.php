@@ -2,17 +2,32 @@
     spl_autoload_register(function($clase) {
         $ruta = "./";
         $archivo = str_replace('\\', '/', $clase);
-        echo "$ruta${archivo}.php | Acuérdate de eliminar esto cuando terminemos de debuggear equisde" . "<br>";
         require("$ruta${archivo}.php");
     });
 
     $config = Classes\StudentManager::singleton();
     $errors = [];
 
+    // Valores por defecto
+    $name = "";
+    $surname = "";
+    $user = "";
+    $password = "";
+    $mail = "";
+    $phone = "";
+
+    $genders = ["Hombre", "Mujer", "Otro"];
+    $grades = ["SMR", "DAW", "DAM", "ASIR"];
+    
+    $sysdate = new DateTime('now');
+    $sysdate->format('Y-m-d');
+    const MIN_EDAD = 16;
+    
+    // print_r($_POST);
     if (isset($_POST["submit"])) {
         // Controlar errores con el hadouken de if/else
 
-        if (!empty($POST_["name"])) {
+        if (!empty($_POST["name"])) {
             $name = Classes\ClearInputData::cleanData($_POST["name"]);
 
             if (!isset($name)) {
@@ -26,7 +41,7 @@
             $surname = Classes\ClearInputData::cleanData($_POST["surname"]);
 
             if (!isset($surname)) {
-                $errors["surname"] = ["Los apellidos tiene que tener de 2 a 25 caracteres"];
+                $errors["surname"] = ["Los apellidos tienen que tener de 2 a 25 caracteres"];
             }
         } else {
             $errors["surname"] = ["Los apellidos no pueden estar vacío"];
@@ -34,12 +49,21 @@
 
         if (!empty($_POST["gender"])) {
             $gender = $_POST["gender"];
+
+            if (!in_array($gender, $genders)) {
+                $errors["gender"] = ["Sexo inválido"];
+            }
         } else {
             $errors["gender"] = ["Falta sexo"];
         }
 
         if (!empty($_POST["birthdate"])) {
             $birthdate = $_POST["birthdate"];
+
+            $diff = $sysdate->diff(new DateTime($birthdate));
+            if ($birthdate > $sysdate || $diff->y < MIN_EDAD) {
+                $errors["birthdate"] = ["Fecha inválida"];
+            } 
         } else {
             $errors["birthdate"] = ["El cumpleaños no puede estar vacío"];
         }
@@ -68,7 +92,7 @@
             $mail = Classes\ClearInputData::cleanData($_POST["mail"], Classes\ClearInputData::MAIL);
             
             if (!isset($mail)) {
-                $errors["mail"] = ["El mail no coincide con el regex"];
+                $errors["mail"] = ["El correo no coincide con el regex"];
             }
         } else {
             $errors["mail"] = ["El correo no puede estar vacío"];
@@ -86,14 +110,24 @@
 
         if (!empty($_POST["grade"])) {
             $grade = $_POST["grade"];
+
+            if (!in_array($grade, $grades)) {
+                $errors["grade"] = ["Ciclo inválido"];
+            } 
         } else {
-            $errors["grade"] = ["El teléfono no puede estar vacío"];
+            $errors["grade"] = ["El ciclo no puede estar vacío"];
         }
 
         if (count($errors) == 0) {
             // Guardar
-            $alumno = new Classes\Alumno($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade);
+            $alumno = new Classes\Student($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade);
+
+            $alumno->saveAlumnos($alumno);
+            header("Location: index.php");
+            
+            exit();
         }
+        print_r($errors);
     }
 ?>
 
@@ -119,36 +153,32 @@
         </nav>
     </header>
     <main class="main">
-        <form class="form" action="" method="post">
+        <form class="form" action="index.php" method="post">
             <h2 class="form__title">Registrar alumno (pobre de él):</h2>
             <div class="form__flex">
                 <fieldset class="form__fieldset">
                     <legend class="form__fieldset-title">Datos personales</legend>
                     <label class="form__label">
                         Nombre:
-                        <input class="form__input" type="text" name="name" value="" placeholder="El nombre que te pusieron los engendros de tus padres">
+                        <input required class="form__input" type="text" name="name" value="<?= $name ?>" placeholder="El nombre que te pusieron los engendros de tus padres">
                     </label>
                     <label class="form__label">
                         Apellidos:
-                        <input class="form__input" type="text" name="surname" value="" placeholder="El primer apellido de cada uno de tus putos padres">
+                        <input required class="form__input" type="text" name="surname" value="<?= $surname ?>" placeholder="El primer apellido de cada uno de tus putos padres">
                     </label>
                     <label class="form__label">
                         Sexo:
                         <div class="form__radio">
-                            <label class="form__label">
-                                <input class="form__input form__input--radio" type="radio" name="gender" value="H"> Hombre
-                            </label>
-                            <label class="form__label">
-                                <input class="form__input form__input--radio" type="radio" name="gender" value="M"> Mujer
-                            </label>
-                            <label class="form__label">
-                                <input class="form__input form__input--radio" type="radio" name="gender" value="O" checked> Todos los días 
-                            </label>
+                            <?php foreach ($genders as $gender) : ?>
+                                <label class="form__label">
+                                    <input class="form__input form__input--radio" type="radio" name="gender" value="<?= $gender ?>"> <?= $gender ?>
+                                </label>
+                            <?php endforeach; ?>
                         </div>
                     </label>
                     <label class="form__label">
                         Fecha de nacimiento:
-                        <input class="form__input" type="date" name="birthdate">
+                        <input required class="form__input" type="date" name="birthdate" value="<?= $birthdate ?>">
                     </label>
                 </fieldset>
 
@@ -156,27 +186,26 @@
                     <legend class="form__fieldset-title">Datos de la cuenta</legend>
                     <label class="form__label">
                         Usuario:
-                        <input class="form__input" type="text" name="user" value="" placeholder="El nombre de mierda con el que te van a identificar">
+                        <input required class="form__input" type="text" name="user" value="<?= $user ?>" placeholder="El nombre de mierda con el que te van a identificar">
                     </label>
                     <label class="form__label">
                         Contraseña:
-                        <input class="form__input" type="password" name="password" value="" placeholder="Da igual lo que pongas, la vamos a cambiar y no te vamos a decir nada">
+                        <input required class="form__input" type="password" name="password" value="<?= $password ?>" placeholder="Da igual lo que pongas, la vamos a cambiar y no te vamos a decir nada">
                     </label>
                     <label class="form__label">
                         Correo:
-                        <input class="form__input" type="mail" name="mail" value="" placeholder="Tu puta dirección para saber a quién mandar spam">
+                        <input required class="form__input" type="mail" name="mail" value="<?= $mail ?>" placeholder="Tu puta dirección para saber a quién mandar spam">
                     </label>
                     <label class="form__label">
                         Teléfono:
-                        <input class="form__input" type="number" name="phone" min="600000000" max="999999999" value="" placeholder="Tu puto número para saber a quién llamar a la hora que más te joda">
+                        <input required class="form__input" type="number" name="phone" min="600000000" max="999999999" value="<?= $phone ?>" placeholder="Tu puto número para saber a quién llamar a la hora que más te joda">
                     </label>
                     <label class="form__label">
                         Curso:
                         <select class="form__input" name="grade">
-                            <option value="gm1">1º Grado Medio</option>
-                            <option value="gm2">2º Grado Medio</option>
-                            <option value="gs1">1º Grado Superior</option>
-                            <option value="gs2">2º Grado Superior</option>
+                        <?php foreach ($grades as $grade) : ?>
+                            <option value="<?=$grade?>"><?=$grade?></option>
+                        <?php endforeach; ?>
                         </select>
                     </label>
                 </fieldset>

@@ -19,6 +19,9 @@ html {
 body {
     font-size: 1.8rem;
     font-family: 'Satoshi', sans-serif;
+    /* No me quiero quedar ciego todavía */
+    background-color: #111;
+    color: #AAA;
 }
 
 /* Utility classes */

@@ -7,7 +7,7 @@
 
         public static function singleton() {
             if(!isset(self::$instance)) {
-                self::$instance = new StudentManager();
+                self::$instance = new \Classes\StudentManager();
             }
             return self::$instance;
         }
@@ -34,32 +34,39 @@
                 array_pop($aux);
 
                 foreach ($aux as $student) {
+                    $student = explode(",", $student);
                     // Hardcodear es mi pasión
-                    self::$list = new Classes\Student($aux[0], $aux[1], $aux[2], $aux[3], $aux[4], $aux[5], $aux[6], $aux[7]);
+                    self::$list[] = new \Classes\Student($student[0], $student[1], $student[2], $student[3], $student[4], $student[5], $student[6], $student[7], $student[8]);
                 }
 
             } else {
                 // Si no existe el archivo, lo crea
-                self::$list[] = file_put_contents("list.csv","",FILE_APPEND);    
+                self::$list[] = file_put_contents("list.csv","");    
             }
 
             return self::$list;
         }
 
-        protected function saveAlumnos(Student $student) {
+        public function saveAlumnos(\Classes\Student $student) {
             file_put_contents(
                 "list.csv",
-                getName($student).",".
-                getSurname($student).",".
-                getUser($student).",".
-                getPassword($student).",".
-                getMail($student).",".
-                getPhone($student).",".
-                getGender($student).",".
-                getGrade($student).",".
-                getBirthdate($student)."\n",
+                $student->getName().",".
+                $student->getSurname().",".
+                $student->getGender().",".
+                $student->getBirthdate().",".
+                $student->getUser().",".
+                $student->getPassword().",".
+                $student->getMail().",".
+                $student->getPhone().",".
+                $student->getGrade()."\n",
                 FILE_APPEND
             );
-        }    
+        }
+
+        static function printList() {
+            foreach (self::$list as $alumno) {
+                echo @$alumno->__toString()."<br>";
+            }
+        }
     }
 ?>

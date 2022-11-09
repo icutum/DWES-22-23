@@ -1,7 +1,7 @@
 <?php
     namespace Classes;
 
-    class Student extends StudentManager {
+    class Student extends \Classes\StudentManager {
         private $name;
         private $surname;
         private $user;
@@ -12,7 +12,7 @@
         private $grade;
         private $birthdate;
 
-        public function __construct($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade){
+        public function __construct($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade) {
             $this->name = $name;
             $this->surname = $surname;
             $this->user = $user;
@@ -21,82 +21,85 @@
             $this->phone = $phone;
             $this->gender = $gender;
             $this->birthdate = $birthdate;
-
-            $this->saveAlumnos($this);
+            $this->grade = $grade;
         }
 
         // Getters
-        public function getName(){
+        public function getName() {
             return $this->name;
         }
 
-        public function getSurname(){
+        public function getSurname() {
             return $this->surname;
         }
 
-        public function getUser(){
+        public function getUser() {
             return $this->user;
         }
 
-        public function getPassword(){
+        public function getPassword() {
             return $this->password;
         }
 
-        public function getMail(){
+        public function getMail() {
             return $this->mail;
         }
 
-        public function getPhone(){
+        public function getPhone() {
             return $this->phone;
         }
 
-        public function getGender(){
+        public function getGender() {
             return $this->gender;
         }
 
-        public function getGrade(){
+        public function getGrade() {
             return $this->grade;
         }
 
-        public function getBirthdate(){
+        public function getBirthdate() {
             return $this->birthdate;
         }
 
         // Setters
-        public function setName($name){
+        public function setName($name) {
             $this->name = $name;
         }
 
-        public function setSurname($surname){
+        public function setSurname($surname) {
             $this->surname = $surname;
         }
 
-        public function setUser($user){
+        public function setUser($user) {
             $this->user = $user;
         }
 
-        public function setPassword($password){
+        public function setPassword($password) {
             $this->password = $password;
         }
 
-        public function setMail($mail){
+        public function setMail($mail) {
             $this->mail = $mail;
         }
 
-        public function setPhone($phone){
+        public function setPhone($phone) {
             $this->phone = $phone;
         }
 
-        public function setGender($gender){
+        public function setGender($gender) {
             $this->gender = $gender;
         }
 
-        public function setGrade($grade){
+        public function setGrade($grade) {
             $this->grade = $grade;
         }
 
-        public function setBirthdate($birthdate){
+        public function setBirthdate($birthdate) {
             $this->birthdate = $birthdate;
+        }
+
+        public function __toString() {
+            return $this->getName();
         }
     }
 ?>
