@@ -23,13 +23,38 @@ body {
 
 h2 {
     font-weight: bold;
-    font-size: 32px;
+    font-size: 3.2rem;
 }
 
 /* Utility classes */
+.success,
+.error {
+    margin: 0 0 2.5rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
 .success {
     background-color: green;
     color: white;
+}
+
+.error {
+    background-color: red;
+    color: white;
+}
+
+.success::before,
+.error::before {
+    font-weight: bold;
+}
+
+.success::before {
+    content: "✔️ ÉXITO: ";
+}
+
+.error::before {
+    content: "⚠️ ERROR: ";
 }
 
 .header {
@@ -123,7 +148,7 @@ h2 {
 
 .form__submit {
     display: block;
-    margin-top: 5rem;
+    margin-top: 2.5rem;
     padding: 0.25em;
     width: 100%;
     background-color: var(--clr-primary);

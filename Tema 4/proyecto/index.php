@@ -33,10 +33,10 @@
             $name = Classes\ClearInputData::cleanData($_POST["name"]);
 
             if (!isset($name)) {
-                $errors["name"] = ["El nombre tiene que tener de 2 a 25 caracteres"];
+                $errors["name"] = "El nombre tiene que tener de 2 a 25 caracteres";
             }
         } else {
-            $errors["name"] = ["El nombre no puede estar vacío"];
+            $errors["name"] = "El nombre no puede estar vacío";
         }
 
         // Apellidos
@@ -44,21 +44,21 @@
             $surname = Classes\ClearInputData::cleanData($_POST["surname"]);
 
             if (!isset($surname)) {
-                $errors["surname"] = ["Los apellidos tienen que tener de 2 a 25 caracteres"];
+                $errors["surname"] = "Los apellidos tienen que tener de 2 a 25 caracteres";
             }
         } else {
-            $errors["surname"] = ["Los apellidos no pueden estar vacío"];
+            $errors["surname"] = "Los apellidos no pueden estar vacíos";
         }
 
         // Sexo
         if (!empty($_POST["gender"])) {
             $gender = $_POST["gender"];
-
+            
             if (!in_array($gender, $genders)) {
-                $errors["gender"] = ["Sexo inválido"];
+                $errors["gender"] = "Sexo inválido";
             }
         } else {
-            $errors["gender"] = ["Falta sexo"];
+            $errors["gender"] = "No se ha especificado ningún sexo";
         }
 
         // Cumpleaños
@@ -67,10 +67,10 @@
 
             $diff = $sysdate->diff(new DateTime($birthdate));
             if ($birthdate > $sysdate || $diff->y < MIN_EDAD) {
-                $errors["birthdate"] = ["Fecha inválida"];
+                $errors["birthdate"] = "El alumno tiene que ser mayor de " . MIN_EDAD . " años";
             } 
         } else {
-            $errors["birthdate"] = ["El cumpleaños no puede estar vacío"];
+            $errors["birthdate"] = "El cumpleaños no puede estar vacío";
         }
 
         // Usuario
@@ -78,10 +78,10 @@
             $user = Classes\ClearInputData::cleanData($_POST["user"], Classes\ClearInputData::USER);
 
             if (!isset($user)) {
-                $errors["user"] = ["El usuario tiene que tener de 3 a 15 caracteres"];
+                $errors["user"] = "El usuario tiene que tener de 3 a 15 caracteres";
             }
         } else {
-            $errors["user"] = ["El usuario no puede estar vacío"];
+            $errors["user"] = "El usuario no puede estar vacío";
         }
 
         // Contraseña
@@ -89,12 +89,10 @@
             $password = Classes\ClearInputData::cleanData($_POST["password"], Classes\ClearInputData::PASSWORD);
 
             if (!isset($password)) {
-                $errors["password"] = ["La contraseña tiene que tener 8 caracteres mínimo"];
-            } else {
-                $password = password_hash($password, PASSWORD_DEFAULT);
+                $errors["password"] = "La contraseña tiene que tener como mínimo 8 caracteres y máximo 64";
             }
         } else {
-            $errors["password"] = ["La contraseña no puede estar vacía"];
+            $errors["password"] = "La contraseña no puede estar vacía";
         }
 
         // Correo
@@ -102,10 +100,10 @@
             $mail = Classes\ClearInputData::cleanData($_POST["mail"], Classes\ClearInputData::MAIL);
             
             if (!isset($mail)) {
-                $errors["mail"] = ["El correo no coincide con el regex"];
+                $errors["mail"] = "El correo introducido no es un correo válido";
             }
         } else {
-            $errors["mail"] = ["El correo no puede estar vacío"];
+            $errors["mail"] = "El correo no puede estar vacío";
         }
 
         // Teléfono
@@ -113,10 +111,10 @@
             $phone = Classes\ClearInputData::cleanData($_POST["phone"], Classes\ClearInputData::PHONE);
 
             if (!isset($phone)) {
-                $errors["phone"] = ["No coincide"];
+                $errors["phone"] = "No es un teléfono válido";
             }
         } else {
-            $errors["phone"] = ["El teléfono no puede estar vacío"];
+            $errors["phone"] = "El teléfono no puede estar vacío";
         }
 
         // Ciclo
@@ -124,16 +122,16 @@
             $grade = $_POST["grade"];
 
             if (!in_array($grade, $grades)) {
-                $errors["grade"] = ["Ciclo inválido"];
+                $errors["grade"] = "Ciclo inválido";
             } 
         } else {
-            $errors["grade"] = ["El ciclo no puede estar vacío"];
+            $errors["grade"] = "El ciclo no puede estar vacío";
         }
 
         // Recuento de errores
         if (count($errors) == 0) {
             // Guardar
-            $alumno = new Classes\Student($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade);
+            $alumno = new Classes\Student($name, $surname, $user, password_hash($password, PASSWORD_DEFAULT), $mail, $phone, $gender, $birthdate, $grade);
 
             $alumno->saveAlumnos($alumno);
             header("Location: index.php");
@@ -154,17 +152,16 @@
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500&display=swap" rel="stylesheet"> 
 </head>
 <body>
-    <header class="header">
-        <img class="header__logo" src="./img/tronco.png" alt="Tronco">
-        <nav class="header__nav">
-            <ul class="header__nav-list">
-                <li class="header__nav-item"><a class="header__nav-link" href="">Pedro Sánchez</a></li>
-                <li class="header__nav-item"><a class="header__nav-link" href="">dame la</a></li>
-                <li class="header__nav-item"><a class="header__nav-link" href="">puta beca</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include_once("header.php"); ?>
     <main class="main">
+        <?php if (count($errors) > 0) :
+            foreach ($errors as $error) : ?>
+                <p class="error"><?= $error ?></p>
+            <?php endforeach;
+        else : ?>
+            <p class="success">Se ha creado el alumno</p>
+        <?php endif; ?>
+
         <form class="form" action="index.php" method="post">
             <h2 class="form__title">Registrar alumno (pobre de él):</h2>
             <div class="form__flex">
