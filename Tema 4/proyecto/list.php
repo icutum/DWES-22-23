@@ -5,7 +5,7 @@
         require("$ruta${archivo}.php");
     });
 
-    $config = Classes\StudentManager::singleton();
+    $config = Form\StudentManager::singleton();
 
     $fields = ["Nombre", "Apellidos", "Sexo", "Cumpleaños", "Usuario", "Correo", "Teléfono", "Ciclo"];
 

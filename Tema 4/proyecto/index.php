@@ -5,133 +5,31 @@
         require("$ruta${archivo}.php");
     });
 
-    $config = Classes\StudentManager::singleton();
-    $errors = [];
+    $config = Form\StudentManager::singleton();
 
     // Valores por defecto
-    const MIN_EDAD = 16;
-
     $name = "";
     $surname = "";
     $user = "";
     $password = "";
     $mail = "";
     $phone = "";
-
-    $genders = ["Hombre", "Mujer", "Todos los días"];
-    $grades = ["SMR", "DAW", "DAM", "ASIR"];
     
-    $sysdate = new DateTime('now');
-    $sysdate->format('Y-m-d');
-    
-    // print_r($_POST);
     if (isset($_POST["submit"])) {
-        // Controlar errores con el hadouken de if/else
-
-        // Nombre
-        if (!empty($_POST["name"])) {
-            $name = Classes\ClearInputData::cleanData($_POST["name"]);
-
-            if (!isset($name)) {
-                $errors["name"] = "El nombre tiene que tener de 2 a 25 caracteres";
-            }
-        } else {
-            $errors["name"] = "El nombre no puede estar vacío";
-        }
-
-        // Apellidos
-        if (!empty($_POST["surname"])) {
-            $surname = Classes\ClearInputData::cleanData($_POST["surname"]);
-
-            if (!isset($surname)) {
-                $errors["surname"] = "Los apellidos tienen que tener de 2 a 25 caracteres";
-            }
-        } else {
-            $errors["surname"] = "Los apellidos no pueden estar vacíos";
-        }
-
-        // Sexo
-        if (!empty($_POST["gender"])) {
-            $gender = $_POST["gender"];
-            
-            if (!in_array($gender, $genders)) {
-                $errors["gender"] = "Sexo inválido";
-            }
-        } else {
-            $errors["gender"] = "No se ha especificado ningún sexo";
-        }
-
-        // Cumpleaños
-        if (!empty($_POST["birthdate"])) {
-            $birthdate = $_POST["birthdate"];
-
-            $diff = $sysdate->diff(new DateTime($birthdate));
-            if ($birthdate > $sysdate || $diff->y < MIN_EDAD) {
-                $errors["birthdate"] = "El alumno tiene que ser mayor de " . MIN_EDAD . " años";
-            } 
-        } else {
-            $errors["birthdate"] = "El cumpleaños no puede estar vacío";
-        }
-
-        // Usuario
-        if (!empty($_POST["user"])) {
-            $user = Classes\ClearInputData::cleanData($_POST["user"], Classes\ClearInputData::USER);
-
-            if (!isset($user)) {
-                $errors["user"] = "El usuario tiene que tener de 3 a 15 caracteres";
-            }
-        } else {
-            $errors["user"] = "El usuario no puede estar vacío";
-        }
-
-        // Contraseña
-        if (!empty($_POST["password"])) {
-            $password = Classes\ClearInputData::cleanData($_POST["password"], Classes\ClearInputData::PASSWORD);
-
-            if (!isset($password)) {
-                $errors["password"] = "La contraseña tiene que tener como mínimo 8 caracteres y máximo 64";
-            }
-        } else {
-            $errors["password"] = "La contraseña no puede estar vacía";
-        }
-
-        // Correo
-        if (!empty($_POST["mail"])) {
-            $mail = Classes\ClearInputData::cleanData($_POST["mail"], Classes\ClearInputData::MAIL);
-            
-            if (!isset($mail)) {
-                $errors["mail"] = "El correo introducido no es un correo válido";
-            }
-        } else {
-            $errors["mail"] = "El correo no puede estar vacío";
-        }
-
-        // Teléfono
-        if (!empty($_POST["phone"])) {
-            $phone = Classes\ClearInputData::cleanData($_POST["phone"], Classes\ClearInputData::PHONE);
-
-            if (!isset($phone)) {
-                $errors["phone"] = "No es un teléfono válido";
-            }
-        } else {
-            $errors["phone"] = "El teléfono no puede estar vacío";
-        }
-
-        // Ciclo
-        if (!empty($_POST["grade"])) {
-            $grade = $_POST["grade"];
-
-            if (!in_array($grade, $grades)) {
-                $errors["grade"] = "Ciclo inválido";
-            } 
-        } else {
-            $errors["grade"] = "El ciclo no puede estar vacío";
-        }
+        $name = Form\Input::clearName($_POST["name"]);
+        $surname = Form\Input::clearSurname($_POST["surname"]);
+        $user = Form\Input::clearUser($_POST["user"]);
+        $password = Form\Input::clearPassword($_POST["password"]);
+        $mail = Form\Input::clearMail($_POST["mail"]);
+        $phone = Form\Input::clearPhone($_POST["phone"]);
+        $gender = Form\Input::clearRadio($_POST["gender"]);
+        $birthdate = Form\Input::clearDate($_POST["birthdate"]);
+        $grade = Form\Input::clearSelect($_POST["grade"]);
 
         // Recuento de errores
-        if (count($errors) == 0) {
+        if (count(Form\Input::getErrors()) == 0) {
             // Guardar
-            $alumno = new Classes\Student($name, $surname, $user, password_hash($password, PASSWORD_DEFAULT), $mail, $phone, $gender, $birthdate, $grade);
+            $alumno = new Form\Student($name, $surname, $user, password_hash($password, PASSWORD_DEFAULT), $mail, $phone, $gender, $birthdate, $grade);
             $alumno->saveAlumnos($alumno);
 
             // Redirigir
@@ -141,6 +39,8 @@
             exit();
         }
     }
+    echo "POST: " . print_r($_POST) . "<br>";
+    print_r(Form\Input::getErrors());
 ?>
 
 <!DOCTYPE html>
@@ -156,8 +56,8 @@
 <body>
     <?php include_once("header.php"); ?>
     <main class="main">
-        <?php if (count($errors) > 0) :
-            foreach ($errors as $error) : ?>
+        <?php if (count(Form\Input::getErrors()) > 0) :
+            foreach (Form\Input::getErrors() as $error) : ?>
                 <p class="error"><?= $error ?></p>
             <?php endforeach;
         elseif ($_GET["success"]) : ?>
@@ -180,7 +80,7 @@
                     <label class="form__label">
                         Sexo:
                         <div class="form__radio">
-                            <?php foreach ($genders as $gender) : ?>
+                            <?php foreach (Form\Input::getGenders() as $gender) : ?>
                                 <label class="form__label">
                                     <input class="form__input form__input--radio" type="radio" name="gender" value="<?= $gender ?>"> <?= $gender ?>
                                 </label>
@@ -214,7 +114,7 @@
                     <label class="form__label">
                         Ciclo:
                         <select class="form__input" name="grade">
-                        <?php foreach ($grades as $grade) : ?>
+                        <?php foreach (Form\Input::getGrades() as $grade) : ?>
                             <option value="<?=$grade?>"><?=$grade?></option>
                         <?php endforeach; ?>
                         </select>

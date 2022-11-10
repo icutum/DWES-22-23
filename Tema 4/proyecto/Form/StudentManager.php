@@ -1,5 +1,5 @@
 <?php
-    namespace Classes;
+    namespace Form;
 
     class StudentManager {
         private static $list = [];
@@ -7,7 +7,7 @@
 
         public static function singleton() {
             if(!isset(self::$instance)) {
-                self::$instance = new \Classes\StudentManager();
+                self::$instance = new \Form\StudentManager();
             }
             return self::$instance;
         }
@@ -25,7 +25,7 @@
                 foreach ($aux as $student) {
                     $student = explode(",", $student);
                     // Hardcodear es mi pasión
-                    self::$list[] = new \Classes\Student($student[0], $student[1], $student[2], $student[3], $student[4], $student[5], $student[6], $student[7], $student[8]);
+                    self::$list[] = new \Form\Student($student[0], $student[1], $student[2], $student[3], $student[4], $student[5], $student[6], $student[7], $student[8]);
                 }
 
             } else {
@@ -36,7 +36,7 @@
             return self::$list;
         }
 
-        public function saveAlumnos(\Classes\Student $student) {
+        public function saveAlumnos(\Form\Student $student) {
             file_put_contents(
                 "list.csv",
                 $student->getName().",".

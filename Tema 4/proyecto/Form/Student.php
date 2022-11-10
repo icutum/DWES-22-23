@@ -1,7 +1,7 @@
 <?php
-    namespace Classes;
+    namespace Form;
 
-    class Student extends \Classes\StudentManager {
+    class Student extends \Form\StudentManager {
         private $name;
         private $surname;
         private $user;
