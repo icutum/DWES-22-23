@@ -132,10 +132,12 @@
         if (count($errors) == 0) {
             // Guardar
             $alumno = new Classes\Student($name, $surname, $user, password_hash($password, PASSWORD_DEFAULT), $mail, $phone, $gender, $birthdate, $grade);
-
             $alumno->saveAlumnos($alumno);
-            header("Location: index.php");
-            
+
+            // Redirigir
+            header("Location: index.php?success=true");
+        
+            // Salir
             exit();
         }
     }
@@ -158,7 +160,7 @@
             foreach ($errors as $error) : ?>
                 <p class="error"><?= $error ?></p>
             <?php endforeach;
-        else : ?>
+        elseif ($_GET["success"]) : ?>
             <p class="success">Se ha creado el alumno</p>
         <?php endif; ?>
 
