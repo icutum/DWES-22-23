@@ -7,8 +7,7 @@
 
     $config = Form\StudentManager::singleton();
 
-    $fields = ["Nombre", "Apellidos", "Sexo", "Cumpleaños", "Usuario", "Correo", "Teléfono", "Ciclo"];
-
+    $keys = $config->getKeys();
     $students = $config->fetchStudents();
 ?>
 
@@ -27,19 +26,21 @@
             <table class="student-list">
                 <caption class="student-list__caption">Lista de alumnos</caption>
                 <tr class="student-list__row">
-                    <?php foreach ($fields as $field) : ?>
-                        <th class="student-list__heading"><?= $field ?></th>
-                    <?php endforeach; ?>
+                    <?php foreach ($keys as $key) : 
+                        if ($key != "password") : ?>
+                            <th class="student-list__heading"><?= ucfirst($key) ?></th>
+                        <?php endif;
+                    endforeach; ?>
                 </tr>
                 <?php foreach ($students as $student) : ?>
                     <tr class="student-list__row">
                         <td class="student-list__column"><?= $student->getName() ?></td>
                         <td class="student-list__column"><?= $student->getSurname() ?></td>
-                        <td class="student-list__column"><?= $student->getGender() ?></td>
-                        <td class="student-list__column"><?= $student->getBirthdate() ?></td>
                         <td class="student-list__column"><?= $student->getUser() ?></td>
                         <td class="student-list__column"><?= $student->getMail() ?></td>
                         <td class="student-list__column"><?= $student->getPhone() ?></td>
+                        <td class="student-list__column"><?= $student->getGender() ?></td>
+                        <td class="student-list__column"><?= $student->getBirthdate() ?></td>
                         <td class="student-list__column"><?= $student->getGrade() ?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -48,6 +49,9 @@
             <h2>¿No hay alumnos, por qué no creas uno?</h2>
         <?php endif; ?>
         
+        <!-- Hacer como si fuera un anuncio -->
+        <img src="./img/virgin-vs-chad.png" alt="Virgin VS Chad">
+
         <a class="form__submit" href="index.php">Volver</a>
     </div>
 </body>

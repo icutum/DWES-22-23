@@ -12,16 +12,16 @@
         private $grade;
         private $birthdate;
 
-        public function __construct($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade) {
-            $this->name = $name;
-            $this->surname = $surname;
-            $this->user = $user;
-            $this->password = $password;
-            $this->mail = $mail;
-            $this->phone = $phone;
-            $this->gender = $gender;
-            $this->birthdate = $birthdate;
-            $this->grade = $grade;
+        public function __construct($data) {
+            $this->name = $data["name"];
+            $this->surname = $data["surname"];
+            $this->user = $data["user"];
+            $this->password = $data["password"];
+            $this->mail = $data["mail"];
+            $this->phone = $data["phone"];
+            $this->gender = $data["gender"];
+            $this->birthdate = $data["birthdate"];
+            $this->grade = $data["grade"];
         }
 
         // Getters
@@ -98,8 +98,20 @@
             $this->birthdate = $birthdate;
         }
 
-        public function __toString() {
-            return $this->getName();
+        public function validateStudent() {
+            $this->name = \Form\Input::clearName($this->name);
+            $this->surname = \Form\Input::clearSurname($this->surname);
+            $this->user = \Form\Input::clearUser($this->user);
+            $this->password = \Form\Input::clearPassword($this->password);
+            $this->mail = \Form\Input::clearMail($this->mail);
+            $this->phone = \Form\Input::clearPhone($this->phone);
+            $this->gender = \Form\Input::clearRadio($this->gender);
+            $this->birthdate = \Form\Input::clearDate($this->birthdate);
+            $this->grade = \Form\Input::clearSelect($this->grade);
+        }
+
+        public function isValid() {
+            return count(\Form\Input::getErrors()) == 0;
         }
     }
 ?>

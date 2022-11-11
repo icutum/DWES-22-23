@@ -2,24 +2,27 @@
     namespace Form;
 
     class Input {
-        // [type=text]
-        public const NAME = "/^[a-zA-ZÀ-ÿ\s]{2,25}$/";
-        public const SURNAME = "/^[a-zA-ZÀ-ÿ\s]{2,25}$/";
-        private const USER = "/^[a-zA-Z0-9]{3,15}$/";
-        // [type=password]
-        private const PASSWORD = "/^[\w]{8,64}$/";
-        // [type=mail]
-        private const MAIL = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/";
-        // [type=number]
-        private const PHONE = "/^[69]{1}[0-9]{8}$/";
-        //[type=date]
-        private static $MIN_EDAD = 16;
-        //[type=radio]
-        private static $GENDERS = ["Hombre", "Mujer", "Todos los dias"];
-        //[select]
-        private static $GRADES = ["SMR", "DAW", "DAM", "ASIR"];
+        // Expresiones regulares
+            // [type=text]
+            public const NAME = "/^[a-zA-ZÀ-ÿ\s]{2,25}$/";
+            public const SURNAME = "/^[a-zA-ZÀ-ÿ\s]{2,25}$/";
+            private const USER = "/^[a-zA-Z0-9]{3,15}$/";
+            // [type=password]
+            private const PASSWORD = "/^[\w]{8,64}$/";
+            // [type=mail]
+            private const MAIL = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/";
+            // [type=number]
+            private const PHONE = "/^[69]{1}[0-9]{8}$/";
 
-        // Array de errores
+        // Campos
+            //[type=date]
+            private static $MIN_EDAD = 16;
+            //[type=radio]
+            private static $GENDERS = ["Hombre", "Mujer", "Todos los dias"];
+            //[select]
+            private static $GRADES = ["SMR", "DAW", "DAM", "ASIR"];
+
+        // Recolección de errores
         private static $errors = [];
 
         private static function cleanData(mixed $data): mixed {
@@ -83,7 +86,7 @@
                 self::$errors["password"] = "La contraseña no puede estar vacía";
             }
 
-            return $data;
+            return password_hash($data, PASSWORD_DEFAULT);
         }
 
         public static function clearMail(string $data) {

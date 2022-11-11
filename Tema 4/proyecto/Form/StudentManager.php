@@ -4,6 +4,7 @@
     class StudentManager {
         private static $list = [];
         private static $instance;
+        private $keys = ["name", "surname", "user", "password", "mail", "phone", "gender", "birthdate", "grade"];
 
         public static function singleton() {
             if(!isset(self::$instance)) {
@@ -13,24 +14,23 @@
         }
 
         public function fetchStudents() {
-            $aux = @file_get_contents(
+            $students = @file_get_contents(
                 "list.csv"
             );
             
-            if ($aux != false) {
+            if ($students != false) {
                 // Si recupera el archivo
-                $aux = explode("\n", $aux);
-                array_pop($aux);
+                $students = explode("\n", $students);
+                array_pop($students);
 
-                foreach ($aux as $student) {
-                    $student = explode(",", $student);
-                    // Hardcodear es mi pasión
-                    self::$list[] = new \Form\Student($student[0], $student[1], $student[2], $student[3], $student[4], $student[5], $student[6], $student[7], $student[8]);
+                foreach ($students as $student) {
+                    $student = array_combine($this->keys, explode(",",$student));
+                    self::$list[] = new \Form\Student($student);
                 }
 
             } else {
                 // Si no existe el archivo, lo crea
-                self::$list = file_put_contents("list.csv","");    
+                self::$list = file_put_contents("list.csv", "");    
             }
 
             return self::$list;
@@ -52,7 +52,11 @@
             );
         }
 
-        static function printList() {
+        public function getKeys() {
+            return $this->keys;
+        }
+
+        public static function printList() {
             foreach (self::$list as $alumno) {
                 echo @$alumno->__toString();
             }
