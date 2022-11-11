@@ -1,8 +1,8 @@
 <?php
-    spl_autoload_register(function($clase) {
-        $ruta = "./";
-        $archivo = str_replace('\\', '/', $clase);
-        require("$ruta${archivo}.php");
+    spl_autoload_register(function($class) {
+        $path = "./";
+        $file = str_replace('\\', '/', $class);
+        require("$path${file}.php");
     });
 
     $config = Form\StudentManager::singleton();
@@ -46,11 +46,8 @@
                 <?php endforeach; ?>
             </table>
         <?php else: ?>
-            <h2>¿No hay alumnos, por qué no creas uno?</h2>
+            <h2 class="student-list__caption">¿No hay alumnos, por qué no creas uno?</h2>
         <?php endif; ?>
-        
-        <!-- Hacer como si fuera un anuncio -->
-        <img src="./img/virgin-vs-chad.png" alt="Virgin VS Chad">
 
         <a class="form__submit" href="index.php">Volver</a>
     </div>

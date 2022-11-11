@@ -21,11 +21,6 @@ body {
     font-family: 'Satoshi', sans-serif;
 }
 
-h2 {
-    font-weight: bold;
-    font-size: 3.2rem;
-}
-
 /* Utility classes */
 .success,
 .error {
@@ -182,6 +177,7 @@ h2 {
 }
 
 .student-list__caption {
+    text-align: center;
     font-size: 32px;
     font-weight: bold;
     margin: 0 0 16px;

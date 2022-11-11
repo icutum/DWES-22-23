@@ -36,7 +36,7 @@
             return self::$list;
         }
 
-        public function saveAlumnos(\Form\Student $student) {
+        public function saveStudent(\Form\Student $student) {
             file_put_contents(
                 "list.csv",
                 $student->getName().",".
