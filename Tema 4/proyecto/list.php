@@ -7,7 +7,8 @@
 
     $config = Form\StudentManager::singleton();
 
-    $keys = $config->getKeys();
+    $keys = Form\Input::getKeys();
+    print_r($keys);
     $students = $config->fetchStudents();
 ?>
 

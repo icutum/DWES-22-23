@@ -4,7 +4,6 @@
     class StudentManager {
         private static $list = [];
         private static $instance;
-        private $keys = ["name", "surname", "user", "password", "mail", "phone", "gender", "birthdate", "grade"];
 
         public static function singleton() {
             if(!isset(self::$instance)) {
@@ -24,7 +23,7 @@
                 array_pop($students);
 
                 foreach ($students as $student) {
-                    $student = array_combine($this->keys, explode(",",$student));
+                    $student = array_combine(\Form\Input::getKeys(), explode(",", $student));
                     self::$list[] = new \Form\Student($student);
                 }
 
@@ -42,7 +41,7 @@
                 $student->getName().",".
                 $student->getSurname().",".
                 $student->getUser().",".
-                $student->getPassword().",".
+                password_hash($student->getPassword(), PASSWORD_DEFAULT).",".
                 $student->getMail().",".
                 $student->getPhone().",".
                 $student->getGender().",".
@@ -52,14 +51,18 @@
             );
         }
 
-        public function getKeys() {
-            return $this->keys;
-        }
+        public function createInputs($post) {
+            $name       = new \Form\InputText("name", "Nombre", $post["name"]);
+            $surname    = new \Form\InputText("surname", "Apellidos", $post["surname"]);
+            $gender     = new \Form\InputRadio("gender", $post["gender"], "Hombre", "Mujer", "Todos los días");
+            $birthdate  = new \Form\InputDate("birthdate", $post["birthdate"]);
+            $user       = new \Form\InputText("user", "Usuario", $post["user"], 3, 16);
+            $password   = new \Form\InputPassword("password", "Contraseña", $post["password"]);
+            $mail       = new \Form\InputMail("mail", "Correo", $post["mail"]);
+            $phone      = new \Form\InputNumber("phone", "Teléfono", $post["phone"]);
+            $grade      = new \Form\InputSelect("grade", $post["grade"], "SMR", "ASIR", "DAW", "DAM");
 
-        public static function printList() {
-            foreach (self::$list as $alumno) {
-                echo @$alumno->__toString();
-            }
+            \Form\Input::setKeys();
         }
     }
 ?>

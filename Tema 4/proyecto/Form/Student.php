@@ -99,15 +99,9 @@
         }
 
         public function validateStudent() {
-            $this->name = \Form\Input::clearName($this->name);
-            $this->surname = \Form\Input::clearSurname($this->surname);
-            $this->user = \Form\Input::clearUser($this->user);
-            $this->password = \Form\Input::clearPassword($this->password);
-            $this->mail = \Form\Input::clearMail($this->mail);
-            $this->phone = \Form\Input::clearPhone($this->phone);
-            $this->gender = \Form\Input::clearRadio($this->gender);
-            $this->birthdate = \Form\Input::clearDate($this->birthdate);
-            $this->grade = \Form\Input::clearSelect($this->grade);
+            foreach (\Form\Input::$inputs as $input) {
+                $input->validate();
+            }
         }
 
         public function isValid() {
