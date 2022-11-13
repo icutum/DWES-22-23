@@ -4,13 +4,15 @@
     class Input {
         private $type;
         private $name;
+        private $placeholder;
         private $data;
         private $regex;
         protected static $errors = [];
+        protected static $inputs = [];
 
-        public function __construct($type, $name, $data = null, $regex = null) {
-            $this->type = $type;
+        public function __construct($name, $placeholder = null, $data = null, $regex = null) {
             $this->name = $name;
+            $this->placeholder = $placeholder;
             $this->data = $data;
             $this->regex = $regex;
         }
@@ -19,20 +21,18 @@
             return $this->errors;
         }
         
-        protected function cleanData($data) {
+        protected function cleanData(&$data) {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
-
-            return $data;
         }
 
         protected function validate() {
-            $this->data = cleanData($this->data);
+            cleanData($this->data);
 
             // Comprobación genérica
-            if (!empty($data)) {
-                self::$errors[$name] = ucfirst($name) . " no puede estar vacío";
+            if (!empty($this->data)) {
+                self::$errors[$this->name] = ucfirst($this->name) . " no puede estar vacío";
             }
         }
     }
