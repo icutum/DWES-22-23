@@ -5,10 +5,11 @@
         require("$path${file}.php");
     });
 
-    $config = Form\StudentManager::singleton();
+    session_start();
 
-    $keys = Form\Input::getKeys();
-    print_r($keys);
+    $keys = $_SESSION["keys"];
+
+    $config = Form\StudentManager::singleton();
     $students = $config->fetchStudents();
 ?>
 
@@ -37,11 +38,11 @@
                     <tr class="student-list__row">
                         <td class="student-list__column"><?= $student->getName() ?></td>
                         <td class="student-list__column"><?= $student->getSurname() ?></td>
+                        <td class="student-list__column"><?= $student->getGender() ?></td>
+                        <td class="student-list__column"><?= $student->getBirthdate() ?></td>
                         <td class="student-list__column"><?= $student->getUser() ?></td>
                         <td class="student-list__column"><?= $student->getMail() ?></td>
                         <td class="student-list__column"><?= $student->getPhone() ?></td>
-                        <td class="student-list__column"><?= $student->getGender() ?></td>
-                        <td class="student-list__column"><?= $student->getBirthdate() ?></td>
                         <td class="student-list__column"><?= $student->getGrade() ?></td>
                     </tr>
                 <?php endforeach; ?>

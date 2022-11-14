@@ -2,8 +2,9 @@
     namespace Form;
 
     class StudentManager {
-        private static $list = [];
         private static $instance;
+        private static $list = [];
+        private static $keys = [];
 
         public static function singleton() {
             if(!isset(self::$instance)) {
@@ -23,7 +24,7 @@
                 array_pop($students);
 
                 foreach ($students as $student) {
-                    $student = array_combine(\Form\Input::getKeys(), explode(",", $student));
+                    $student = array_combine($_SESSION["keys"], explode(",", $student));
                     self::$list[] = new \Form\Student($student);
                 }
 
@@ -40,12 +41,12 @@
                 "list.csv",
                 $student->getName().",".
                 $student->getSurname().",".
+                $student->getGender().",".
+                $student->getBirthdate().",".
                 $student->getUser().",".
                 password_hash($student->getPassword(), PASSWORD_DEFAULT).",".
                 $student->getMail().",".
                 $student->getPhone().",".
-                $student->getGender().",".
-                $student->getBirthdate().",".
                 $student->getGrade()."\n",
                 FILE_APPEND
             );
@@ -62,7 +63,21 @@
             $phone      = new \Form\InputNumber("phone", "Teléfono", $post["phone"]);
             $grade      = new \Form\InputSelect("grade", $post["grade"], "SMR", "ASIR", "DAW", "DAM");
 
-            \Form\Input::setKeys();
+            self::setKeys();
+        }
+
+        public static function setKeys() {
+            session_start();
+
+            foreach (\Form\Input::$inputs as $key) {
+                self::$keys[] = $key->getName();
+            }
+
+            $_SESSION["keys"] = self::$keys;
+        }
+
+        public function getKeys() {
+            return self::$keys;
         }
     }
 ?>

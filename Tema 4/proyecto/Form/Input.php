@@ -9,7 +9,6 @@
         protected $regex;
         protected static $errors = [];
         public static $inputs = [];
-        private static $keys = [];
 
         public function __construct($name, $placeholder = null, $data = null, $regex = null) {
             $this->name = $name;
@@ -51,16 +50,6 @@
                     } ?>
                 </fieldset>
             <?php }
-        }
-
-        public static function setKeys() {
-            foreach (self::$inputs as $key) {
-                self::$keys[] = $key->getName();
-            }
-        }
-
-        public static function getKeys() {
-            return self::$keys;
         }
 
         public function getType() {
