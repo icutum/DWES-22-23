@@ -53,15 +53,15 @@
         }
 
         public function createInputs($post) {
-            $name       = new \Form\InputText("name", "Nombre", $post["name"]);
-            $surname    = new \Form\InputText("surname", "Apellidos", $post["surname"]);
-            $gender     = new \Form\InputRadio("gender", $post["gender"], "Hombre", "Mujer", "Todos los días");
-            $birthdate  = new \Form\InputDate("birthdate", $post["birthdate"]);
-            $user       = new \Form\InputText("user", "Usuario", $post["user"], 3, 16);
-            $password   = new \Form\InputPassword("password", "Contraseña", $post["password"]);
-            $mail       = new \Form\InputMail("mail", "Correo", $post["mail"]);
-            $phone      = new \Form\InputNumber("phone", "Teléfono", $post["phone"]);
-            $grade      = new \Form\InputSelect("grade", $post["grade"], "SMR", "ASIR", "DAW", "DAM");
+            $name       = new \Form\InputText("Nombre", "Nombre", $post["Nombre"]);
+            $surname    = new \Form\InputText("Apellidos", "Apellidos", $post["Apellidos"]);
+            $gender     = new \Form\InputRadio("Sexo", $post["Sexo"], "Hombre", "Mujer", "Todos los días");
+            $birthdate  = new \Form\InputDate("Cumpleaños", $post["Cumpleaños"]);
+            $user       = new \Form\InputText("Usuario", "Usuario", $post["Usuario"], 3, 16);
+            $password   = new \Form\InputPassword("Contraseña", "Contraseña", $post["Contraseña"]);
+            $mail       = new \Form\InputMail("Correo", "Correo", $post["Correo"]);
+            $phone      = new \Form\InputNumber("Teléfono", "Teléfono", $post["Teléfono"]);
+            $grade      = new \Form\InputSelect("Ciclo", $post["Ciclo"], "SMR", "ASIR", "DAW", "DAM");
 
             self::setKeys();
         }

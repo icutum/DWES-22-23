@@ -28,8 +28,8 @@
             <table class="student-list">
                 <caption class="student-list__caption">Lista de alumnos</caption>
                 <tr class="student-list__row">
-                    <?php foreach ($keys as $key) : 
-                        if ($key != "password") : ?>
+                    <?php foreach ($keys as $key) : // Si la clave es la contraseña, no la muestres
+                        if ($key != $_SESSION["keys"][5]) : ?>
                             <th class="student-list__heading"><?= ucfirst($key) ?></th>
                         <?php endif;
                     endforeach; ?>

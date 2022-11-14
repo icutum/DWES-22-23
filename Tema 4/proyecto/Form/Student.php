@@ -13,15 +13,15 @@
         private $birthdate;
 
         public function __construct($data) {
-            $this->name = $data["name"];
-            $this->surname = $data["surname"];
-            $this->user = $data["user"];
-            $this->password = $data["password"];
-            $this->mail = $data["mail"];
-            $this->phone = $data["phone"];
-            $this->gender = $data["gender"];
-            $this->birthdate = $data["birthdate"];
-            $this->grade = $data["grade"];
+            $this->name = $data[$_SESSION["keys"][0]];
+            $this->surname = $data[$_SESSION["keys"][1]];
+            $this->gender = $data[$_SESSION["keys"][2]];
+            $this->birthdate = $data[$_SESSION["keys"][3]];
+            $this->user = $data[$_SESSION["keys"][4]];
+            $this->password = $data[$_SESSION["keys"][5]];
+            $this->mail = $data[$_SESSION["keys"][6]];
+            $this->phone = $data[$_SESSION["keys"][7]];
+            $this->grade = $data[$_SESSION["keys"][8]];
         }
 
         // Getters
