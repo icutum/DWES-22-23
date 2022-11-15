@@ -19,11 +19,6 @@
 
             $diff = $sysdate->diff(new \DateTime($this->data));
 
-            echo $this->minAge ."<br>";
-            echo $this->data . "<br>";
-            echo $sysdate->format("Y-m-d") . "<br>";
-            echo $diff->y . "<br>";
-
             if ($this->data > $sysdate || $diff->y <= $this->minAge) {
                 parent::$errors[$this->name] = "El alumno tiene que ser mayor de " . $this->minAge . " años";
             }
