@@ -55,7 +55,7 @@
         public function createInputs($post) {
             $name       = new \Form\InputText("Nombre", "Nombre", $post["Nombre"]);
             $surname    = new \Form\InputText("Apellidos", "Apellidos", $post["Apellidos"]);
-            $gender     = new \Form\InputRadio("Sexo", $post["Sexo"], "Hombre", "Mujer", "Todos los días");
+            $gender     = new \Form\InputRadio("Sexo", $post["Sexo"], "Hombre", "Mujer", "Todos los días", "Por favor");
             $birthdate  = new \Form\InputDate("Cumpleaños", $post["Cumpleaños"]);
             $user       = new \Form\InputText("Usuario", "Usuario", $post["Usuario"], 3, 16);
             $password   = new \Form\InputPassword("Contraseña", "Contraseña", $post["Contraseña"]);
