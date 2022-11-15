@@ -34,7 +34,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tronco</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500&display=swap" rel="stylesheet"> 
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./img/favicon.png">
 </head>
 <body>
     <?php include_once("header.php"); ?>
