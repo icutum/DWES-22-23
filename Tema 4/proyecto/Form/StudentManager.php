@@ -15,7 +15,7 @@
 
         public function fetchStudents() {
             $students = @file_get_contents(
-                "list.csv"
+                "./list.csv"
             );
             
             if ($students != false) {
@@ -30,7 +30,7 @@
 
             } else {
                 // Si no existe el archivo, lo crea
-                self::$list = file_put_contents("list.csv", "");    
+                self::$list = file_put_contents("./list.csv", "");    
             }
 
             return self::$list;
@@ -38,7 +38,7 @@
 
         public function saveStudent(\Form\Student $student) {
             file_put_contents(
-                "list.csv",
+                "./list.csv",
                 $student->getName().",".
                 $student->getSurname().",".
                 $student->getGender().",".
