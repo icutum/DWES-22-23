@@ -3,10 +3,12 @@
 
     class InputDate extends Input {
         private $minAge;
+        private $maxAge;
 
-        public function __construct($name, $data = null, $minAge = 16) {
+        public function __construct($name, $data = null, $minAge = 16, $maxAge = 65) {
             $this->type = "date";
             $this->minAge = $minAge;
+            $this->maxAge = $maxAge;
             parent::__construct($name, null, $data, null);
         }
 

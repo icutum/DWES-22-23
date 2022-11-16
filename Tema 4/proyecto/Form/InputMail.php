@@ -2,7 +2,7 @@
     namespace Form;
 
     class InputMail extends Input {
-        public function __construct($name, $placeholder = null, $data = null, $regex = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/") {
+        public function __construct($name, $placeholder = null, $data = null, $regex = "/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/") {
             $this->type = "mail";
             parent::__construct($name, $placeholder, $data, $regex);
         }
