@@ -18,16 +18,14 @@
             self::$inputs[] = $this;
         }
         
-        protected function cleanData($data) {
+        protected function cleanData(&$data) {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
-
-            return $data;
         }
 
         protected function validate() {
-            $this->data = $this->cleanData($this->data);
+            self::cleanData($this->data);
 
             // Comprobación genérica
             if (empty($this->data)) {
