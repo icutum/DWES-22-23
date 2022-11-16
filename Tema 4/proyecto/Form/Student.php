@@ -12,16 +12,16 @@
         private $grade;
         private $birthdate;
 
-        public function __construct($data) {
-            $this->name = $data[$_SESSION["keys"][0]];
-            $this->surname = $data[$_SESSION["keys"][1]];
-            $this->gender = $data[$_SESSION["keys"][2]];
-            $this->birthdate = $data[$_SESSION["keys"][3]];
-            $this->user = $data[$_SESSION["keys"][4]];
-            $this->password = $data[$_SESSION["keys"][5]];
-            $this->mail = $data[$_SESSION["keys"][6]];
-            $this->phone = $data[$_SESSION["keys"][7]];
-            $this->grade = $data[$_SESSION["keys"][8]];
+        public function __construct($post) {
+            $this->name = $post[$_SESSION["keys"][0]];
+            $this->surname = $post[$_SESSION["keys"][1]];
+            $this->gender = $post[$_SESSION["keys"][2]];
+            $this->birthdate = $post[$_SESSION["keys"][3]];
+            $this->user = $post[$_SESSION["keys"][4]];
+            $this->password = $post[$_SESSION["keys"][5]];
+            $this->mail = $post[$_SESSION["keys"][6]];
+            $this->phone = $post[$_SESSION["keys"][7]];
+            $this->grade = $post[$_SESSION["keys"][8]];
         }
 
         // Getters
@@ -102,6 +102,17 @@
             foreach (\Form\Input::$inputs as $input) {
                 $input->validate();
             }
+
+            // Hardcodear es mi pasión
+            $this->setName(\Form\Input::$inputs[0]->getData());
+            $this->setSurname(\Form\Input::$inputs[1]->getData());
+            $this->setUser(\Form\Input::$inputs[2]->getData());
+            $this->setPassword(\Form\Input::$inputs[3]->getData());
+            $this->setMail(\Form\Input::$inputs[4]->getData());
+            $this->setPhone(\Form\Input::$inputs[5]->getData());
+            $this->setGender(\Form\Input::$inputs[6]->getData());
+            $this->setGrade(\Form\Input::$inputs[7]->getData());
+            $this->setBirthdate(\Form\Input::$inputs[8]->getData());
         }
 
         public function isValid() {
