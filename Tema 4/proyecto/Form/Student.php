@@ -106,13 +106,13 @@
             // Hardcodear es mi pasión
             $this->setName(\Form\Input::$inputs[0]->getData());
             $this->setSurname(\Form\Input::$inputs[1]->getData());
-            $this->setUser(\Form\Input::$inputs[2]->getData());
-            $this->setPassword(\Form\Input::$inputs[3]->getData());
-            $this->setMail(\Form\Input::$inputs[4]->getData());
-            $this->setPhone(\Form\Input::$inputs[5]->getData());
-            $this->setGender(\Form\Input::$inputs[6]->getData());
-            $this->setGrade(\Form\Input::$inputs[7]->getData());
-            $this->setBirthdate(\Form\Input::$inputs[8]->getData());
+            $this->setGender(\Form\Input::$inputs[2]->getData());
+            $this->setBirthdate(\Form\Input::$inputs[3]->getData());
+            $this->setUser(\Form\Input::$inputs[4]->getData());
+            $this->setPassword(\Form\Input::$inputs[5]->getData());
+            $this->setMail(\Form\Input::$inputs[6]->getData());
+            $this->setPhone(\Form\Input::$inputs[7]->getData());
+            $this->setGrade(\Form\Input::$inputs[8]->getData());
         }
 
         public function isValid() {
