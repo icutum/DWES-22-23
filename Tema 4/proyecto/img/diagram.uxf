@@ -1,0 +1,103 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>1169</x><y>376</y><w>189</w><h>243</h></coordinates><panel_attributes>Student
+--
+- name
+- surname
+- user
+- password
+- mail
+- phone
+- gender
+- grade
+- birth date
+
+--
++ constructor
++ getters
++ setters
++ validateStudent
++ isValid
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1169</x><y>61</y><w>189</w><h>198</h></coordinates><panel_attributes>StudentManager
+--
+_- list_
+_- instace_
+_- keys_
+
+--
++ singleton
++ fetchStudent
++ saveStudent
++ createInputs
++ setKeys
++ getKeys
+_- printList()_</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>539</x><y>7</y><w>189</w><h>234</h></coordinates><panel_attributes>Input
+--
+- type
+- name
+- placeholder
+- data
+- regex
+_- errors_
+_+ inputs_
+
+--
+# cleanData(string data)
+# validate()
++ abstract printInput()
+_+ printForm()_
++ getters
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>232</y><w>297</w><h>63</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>310;10;11;50</additional_attributes></element><element><id>Relation</id><coordinates><x>1250</x><y>250</y><w>27</w><h>144</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>UMLClass</id><coordinates><x>296</x><y>421</y><w>135</w><h>126</h></coordinates><panel_attributes>InputText
+--
+- minlength
+- maxlength
+
+--
++ construct()
++ validate()
++ printInput()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>286</y><w>135</w><h>126</h></coordinates><panel_attributes>InputNumber
+--
+
+--
++ construct()
++ validate()
++ printInput()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>557</x><y>628</y><w>144</w><h>126</h></coordinates><panel_attributes>InputPassword
+--
+- minlength
+- maxlength
+
+--
++ construct()
++ validate()
++ printInput()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>737</x><y>583</y><w>144</w><h>126</h></coordinates><panel_attributes>InputRadio
+--
+- values
+
+--
++ construct()
++ validate()
++ printInput()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>395</x><y>565</y><w>117</w><h>108</h></coordinates><panel_attributes>InputMail
+--
+
+--
++ construct()
++ validate()
++ printInput()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>277</y><w>126</w><h>126</h></coordinates><panel_attributes>InputSelect
+--
+- list
+--
++ construct()
++ validate()
++ printInput()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>827</x><y>439</y><w>144</w><h>126</h></coordinates><panel_attributes>InputDate
+--
+- minAge
+
+--
++ construct()
++ validate()
++ printInput()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>476</x><y>232</y><w>171</w><h>351</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;10;10;370</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>232</y><w>216</w><h>369</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;220;390</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>232</y><w>315</w><h>225</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;330;230</additional_attributes></element><element><id>Relation</id><coordinates><x>386</x><y>232</y><w>261</w><h>207</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>270;10;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>232</y><w>36</w><h>414</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;20;440</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>232</y><w>387</w><h>72</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;410;60</additional_attributes></element></diagram>
