@@ -58,7 +58,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
-    border-bottom: 1px solid gray;
+    border-bottom: 0.1rem solid gray;
 }
 
 .header__logo {
@@ -166,33 +166,33 @@ body {
 .list-wrapper {
     display: flex;
     flex-direction: column;
-    width: 75%;
+    width: 80%;
     margin: 0 auto;
-    padding: 25px;
+    padding: 2.5rem;
 }
 
 .student-list {
     border-collapse: collapse;
-    border: 2.5px solid var(--clr-primary-dark);
+    border: 0.25rem solid var(--clr-primary-dark);
 }
 
 .student-list__caption {
     text-align: center;
-    font-size: 32px;
+    font-size: 3.2rem;
     font-weight: bold;
-    margin: 0 0 16px;
+    margin: 0 0 1.6rem;
     color: var(--clr-primary-dark);
 }
 
 .student-list__row,
 .student-list__column,
 .student-list__heading {
-    border: 1px solid black;
+    border: 0.1rem solid black;
 }
 
 .student-list__column,
 .student-list__heading {
-    padding: 5px;
+    padding: 0.5rem;
 }
 
 .student-list__heading {
