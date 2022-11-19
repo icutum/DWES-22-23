@@ -1,6 +1,9 @@
 <?php
     try {
-        $mbd = new PDO('mysql:host=localhost;dbname=dwes', "dwes", "dwes");
+        $dsn = 'mysql:host=localhost;dbname=dwes';
+        $user = $passwd = "dwes";
+
+        $mbd = new PDO($dsn, $user, $passwd);
 
         // Utilizar la conexión aquí
         $resultado = $mbd->query('SELECT * FROM Ciclistas');
@@ -16,16 +19,29 @@
         die();
     }
 
-    function imprimirTabla($consulta) { ?>
+    function imprimirTabla($consulta) { 
+        $tabla = $consulta->fetchAll(); 
+        /**
+         * fetchAll devuelve un array con todas las filas del objeto,
+         * ya que, al iterar una vez por el objeto PDOStatement,
+         * no permite iterar de nuevo (lo cual no tiene mucho sentido)
+         */
+        ?>
         <table>
-            <?php foreach ($consulta as $fila) : ?>
+            <tr>
+                <?php foreach ($tabla[0] as $clave => $valor) : if (!is_numeric($clave)) : ?>
+                    <th><?= $clave ?></th>
+                <?php endif; endforeach; ?>
+            </tr>
+            <?php foreach ($tabla as $fila) : ?>
                 <tr>
                     <?php foreach ($fila as $clave => $valor) : if (!is_numeric($clave)) : ?>
                         <td><?= $valor ?></td>
                     <?php endif; endforeach; ?>
                 </tr>
             <?php endforeach; ?>
-       </table>
+        </table>
+        <p><?= $consulta->rowCount(); ?> filas afectadas.</p>
     <?php }
 ?>
 
@@ -37,13 +53,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba BD</title>
     <style>
+        body {
+            font-family: arial;
+        }
+
         table {
             border-collapse: collapse;
         }
 
-        td {
-            border: 1px solid black;
+        th, td {
+            border: 1px solid #333;
             padding: 5px;
+        }
+
+        tr:first-child {
+            background-color: #333;
+            color: white;
+        }
+
+        tr:nth-child(2n + 3) {
+            background-color: #eee;
+        }
+
+        td:first-child {
+            font-weight: bold;
         }
     </style>
 </head>
