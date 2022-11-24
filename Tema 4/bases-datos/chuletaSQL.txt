@@ -9,3 +9,32 @@ GRANT ALL PRIVILEGES ON examen.* TO 'examen'@'localhost' WITH GRANT OPTION;
 
 // Conexión
 mariadb -h 127.0.0.1 -u examen -p examen
+
+function imprimirTabla($consulta) { 
+        $tabla = $consulta->fetchAll(); 
+        /**
+         * fetchAll devuelve un array con todas las filas del objeto,
+         * ya que, al iterar una vez por el objeto PDOStatement,
+         * no permite iterar de nuevo (lo cual no tiene mucho sentido)
+         */
+        ?>
+        <table>
+            <tr>
+                <?php foreach ($tabla[0] as $clave => $valor) : ?>
+                    <th><?= $clave ?></th>
+                <?php endforeach; ?>
+            </tr>
+            <?php foreach ($tabla as $fila) : ?>
+                <tr>
+                    <?php foreach ($fila as $clave => $valor) : ?>
+                        <td>
+                            <a href="./list.php?id=<?=$fila["id"]?>">
+                                <?= $valor ?>
+                            </a>
+                        </td>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        <p><?= $consulta->rowCount(); ?> filas afectadas.</p>
+    <?php }

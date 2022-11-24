@@ -11,12 +11,17 @@
         $dbh = new PDO($dsn, $user, $passwd, $options);
 
         // Utilizar la conexión aquí
-        $resultado = $dbh->query('SELECT id FROM Ciclistas');
+        if (isset($name)) {
+            $sth = $dbh->prepare('SELECT * FROM Ciclistas WHERE nombre LIKE CONCAT("%", :name, "%")');
+            $sth->bindParam(":name", $name);
+            $sth->execute();
 
-        imprimirTabla($resultado);
+        } else {
+            $sth = $dbh->query('SELECT * FROM Ciclistas');
+        }
 
         // Ya se ha terminado; se cierra
-        $resultado = null;
+        // $sth = null;
         $dbh = null;
 
     } catch (PDOException $e) {
@@ -24,33 +29,26 @@
         die();
     }
 
-    function imprimirTabla($consulta) { 
-        $tabla = $consulta->fetchAll(); 
-        /**
-         * fetchAll devuelve un array con todas las filas del objeto,
-         * ya que, al iterar una vez por el objeto PDOStatement,
-         * no permite iterar de nuevo (lo cual no tiene mucho sentido)
-         */
-        ?>
-        <table>
-            <tr>
-                <?php foreach ($tabla[0] as $clave => $valor) : ?>
-                    <th><?= $clave ?></th>
-                <?php endforeach; ?>
-            </tr>
-            <?php foreach ($tabla as $fila) : ?>
+    function imprimirCiclistas($consulta) { ?>
+        <form action="" method="get">
+            <input type="text" name="name" placeholder="Ciclista a buscar" value="<?= $_GET["name"] ?>">
+            <input type="submit" name="send" value="Buscar">
+            <table>
                 <tr>
-                    <?php foreach ($fila as $clave => $valor) : ?>
+                    <th>Ciclistas</th>
+                </tr>
+                <?php foreach ($consulta->fetchAll() as $clave => $valor) : ?>
+                    <tr>        
                         <td>
-                            <a href="./list.php?id=<?=$fila["id"]?>">
-                                Registro <?= $valor ?>
+                            <a href="./details.php?id=<?=$valor["id"]?>">
+                                <?= $valor["nombre"] ?>
                             </a>
                         </td>
-                    <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <p><?= $consulta->rowCount(); ?> filas afectadas.</p>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            <p><b><?= $consulta->rowCount(); ?></b> fila/s afectadas.</p>
+        </form>
     <?php }
 ?>
 
@@ -61,35 +59,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba BD</title>
-    <style>
-        body {
-            font-family: arial;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #333;
-            padding: 5px;
-        }
-
-        tr:first-child {
-            background-color: #333;
-            color: white;
-        }
-
-        tr:nth-child(2n + 3) {
-            background-color: #eee;
-        }
-
-        td:first-child {
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
+    <?= imprimirCiclistas($sth) ?>
 </body>
 </html>
