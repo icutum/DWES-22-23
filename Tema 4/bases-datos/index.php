@@ -11,9 +11,9 @@
         $dbh = new PDO($dsn, $user, $passwd, $options);
 
         // Utilizar la conexión aquí
-        if (isset($name)) {
+        if (isset($_GET["name"])) {
             $sth = $dbh->prepare('SELECT * FROM Ciclistas WHERE nombre LIKE CONCAT("%", :name, "%")');
-            $sth->bindParam(":name", $name);
+            $sth->bindParam(":name", $_GET["name"]);
             $sth->execute();
 
         } else {
