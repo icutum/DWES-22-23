@@ -22,11 +22,15 @@
             $diff = date_diff(new \DateTime($this->data), $sysdate);
             $diff = intval($diff->format("%R%y")); // %R = +/- | %y = años
 
-            if ($diff <= $this->minAge) {
-                parent::$errors[$this->name] = "El alumno tiene que ser mayor de " . $this->minAge . " años";
-            } else if ($diff > $this->maxAge) {
-                parent::$errors[$this->name] = "El alumno tiene que ser menor de " . $this->maxAge . " años";
-            } 
+            if (strlen(explode("-", $this->data)[0]) == 4) {
+                if ($diff <= $this->minAge) {
+                    parent::$errors[$this->name] = "El alumno tiene que ser mayor de " . $this->minAge . " años";
+                } else if ($diff > $this->maxAge) {
+                    parent::$errors[$this->name] = "El alumno tiene que ser menor de " . $this->maxAge . " años";
+                }
+            } else {
+                parent::$errors[$this->name] = "¿Que te crees, que me ibas a hacer overflow/underflow?";
+            }
         }
 
         public function printInput() { ?>
