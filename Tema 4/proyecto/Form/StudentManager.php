@@ -19,7 +19,7 @@
             $students = @file_get_contents(
                 "./list.csv"
             );
-            
+
             if ($students != false) {
                 // Si recupera el archivo
                 $students = explode("\n", $students);

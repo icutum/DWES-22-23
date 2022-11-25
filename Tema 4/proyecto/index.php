@@ -7,7 +7,7 @@
 
     $config = Form\StudentManager::singleton();
     @$config->createInputs($_POST);
-    
+
     if (isset($_POST["submit"])) {
         $student = new Form\Student($_POST);
         $student->validateStudent();
@@ -19,7 +19,7 @@
 
             // Redirigir
             header("Location: index.php?success=true");
-        
+
             // Salir
             exit();
         }

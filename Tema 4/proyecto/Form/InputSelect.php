@@ -3,7 +3,7 @@
 
     class InputSelect extends Input {
         private $list = [];
-        
+
         public function __construct($name, $data = null, string ...$list){
             $this->type="select";
             foreach ($list as $item) {

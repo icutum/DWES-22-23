@@ -17,7 +17,7 @@
             $this->regex = $regex;
             self::$inputs[] = $this;
         }
-        
+
         protected function cleanData(&$data) {
             $data = trim($data);
             $data = stripslashes($data);
