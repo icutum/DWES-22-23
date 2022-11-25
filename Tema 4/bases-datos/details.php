@@ -9,8 +9,8 @@
         $dbh = new PDO($dsn, $user, $passwd, $options);
 
         $sth = $dbh->prepare('SELECT * FROM Ciclistas WHERE id = :id');
-        $sth->bindParam(":id", $_GET["id"]);
-        $sth->execute();
+        // $sth->bindParam(":id", $_GET["id"]);
+        $sth->execute([":id" => $_GET["id"]]);
 
         // $sth = null;
         $dbh = null;
