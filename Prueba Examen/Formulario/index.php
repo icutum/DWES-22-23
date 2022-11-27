@@ -21,8 +21,9 @@
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ];
 
-            //$db = DB::connect($dsn, $user, $password, $options);
-            //$sth->prepare("INSERT INTO prueba VALUES ");
+            DB::connect($dsn, $user, $password, $options);
+            $dbh = new DB();
+            $dbh->insertValues($form);
 
             // Redirigir
             header("Location: index.php?success=true");
