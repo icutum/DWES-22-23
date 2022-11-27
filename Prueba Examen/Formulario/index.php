@@ -20,9 +20,8 @@
             $options = [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ];
-
-            DB::connect($dsn, $user, $password, $options);
-            $dbh = new DB();
+            
+            $dbh = new DB($dsn, $user, $password, $options);
             $dbh->insertValues($form);
 
             // Redirigir
