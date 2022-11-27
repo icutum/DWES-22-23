@@ -1,21 +1,35 @@
 <?php
     require("./Utils/Autoload.php");
 
-    use Form\FormHandle as FormHandle;
-    use Form\DBHandle as DB;
+    use Controller\Form as Form;
+    use Controller\FileHandle as File;
+    use Controller\DBHandle as DB;
 
-    $form = FormHandle::singleton();
-    @$form->createInputs($_POST);
-
-    $db = DB::connect($dsn, $user, $password, $options);
-    $sth = $db->query("SELECT * FROM Ciclistas");
+    $form = Form::singleton();
+    $form->createInputs($_POST);
 
     if (isset($_POST["submit"])) {
-        if ($form->isValid())
-            echo "<b>Valido</b>";
-        else
-            echo "<b>Mal</b>";
+        if ($form->isValid()) {
+            // Guardar a .csv
+            $fh = File::singleton();
+            $fh->saveToCSV($form);
 
+            // Guardar en BBDD
+            $dsn = "mysql:host=localhost;dbname=dwes";
+            $user = $password = "dwes";
+            $options = [
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ];
+
+            //$db = DB::connect($dsn, $user, $password, $options);
+            //$sth->prepare("INSERT INTO prueba VALUES ");
+
+            // Redirigir
+            header("Location: index.php?success=true");
+
+            // Salir
+            exit();
+        }
     }
 ?>
 
@@ -31,5 +45,7 @@
 <body>
     <h1>Ultra formulario</h1>
     <?= $form->printForm() ?>
+    <a href="./listFile.php">Ver archivo</a>
+    <a href="./listDB.php">Ver BBDD</a>
 </body>
 </html>

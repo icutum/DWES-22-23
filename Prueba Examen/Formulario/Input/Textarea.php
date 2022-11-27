@@ -5,7 +5,7 @@
 
     class Textarea extends Input {
         public function __construct($name, $value, $placeholder = null) {
-            $this->type = InputType::MAIL->value;
+            $this->type = InputType::TEXTAREA->value;
             $this->regex = null;
             $this->placeholder = $placeholder;
             parent::__construct($name, $value);

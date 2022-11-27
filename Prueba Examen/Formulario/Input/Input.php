@@ -9,12 +9,10 @@
         protected $value;
         protected $regex;
         protected $error = [];
-        protected static $inputs = [];
 
         protected function __construct($name, $value) {
             $this->name = $name;
             $this->value = $value;
-            self::$inputs[] = $this;
         }
 
         protected final function cleanData(&$data) {
@@ -77,14 +75,6 @@
 
         public function setError($error) {
             $this->error = $error;
-        }
-
-        public static function getInputs() {
-            return self::$inputs;
-        }
-
-        public static function setInputs($inputs) {
-            self::$inputs = $inputs;
         }
     }
 ?>

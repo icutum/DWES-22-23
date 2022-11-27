@@ -14,8 +14,24 @@ h1 {
     font-weight: bold;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+th {
+    font-weight: bold;
+}
+
 .form__error {
     color: red;
+}
+
+.form__success {
+    color: green;
 }
 
 .form__label,

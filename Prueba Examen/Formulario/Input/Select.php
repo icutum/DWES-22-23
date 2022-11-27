@@ -7,7 +7,7 @@
         private $options;
 
         public function __construct($name, $value, ...$options) {
-            $this->type = InputType::MAIL->value;
+            $this->type = InputType::SELECT->value;
             $this->regex = null;
             $this->options = $options;
             parent::__construct($name, $value);
