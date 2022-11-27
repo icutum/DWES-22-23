@@ -5,12 +5,14 @@
         private static $instance;
 
         public function __construct($dsn, $user, $password, $options) {
-            try {
-                self::$instance = new \PDO($dsn, $user, $password, $options);
+            if (!isset(self::$instance)) {
+                try {
+                    self::$instance = new \PDO($dsn, $user, $password, $options);
 
-            } catch (PDOException $e) {
-                print "Error:" . $e->getMessage() . "\n";
-                exit();
+                } catch (PDOException $e) {
+                    print "Error:" . $e->getMessage() . "\n";
+                    exit();
+                }
             }
         }
 
