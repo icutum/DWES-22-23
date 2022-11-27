@@ -4,9 +4,9 @@
     use Utils\Placeholder, Utils\InputType, Utils\Regex;
 
     class InputPassword extends Input {
-        public function __construct($name, $value, $placeholder) {
-            $this->type = InputType::PASSWORD;
-            $this->regex = Regex::PASSWORD;
+        public function __construct($name, $value, $placeholder = null) {
+            $this->type = InputType::PASSWORD->value;
+            $this->regex = Regex::PASSWORD->value;
             $this->placeholder = $placeholder;
             parent::__construct($name, $value);
         }
@@ -15,7 +15,7 @@
             parent::validate();
 
             if (!preg_match($this->regex, $this->value)) {
-                $this->error = $this->name . " no es correcto";
+                $this->error[] = $this->name . " no es correcto";
             }
         }
 
@@ -23,7 +23,7 @@
             <label class="form__label">
                 <?= ucfirst($this->name) ?>:
                 <input required class="form__input" type="<?= $this->type ?>" name="<?= $this->name ?>" value="<?= $this->value ?>" placeholder="<?= $this->placeholder ?>">
-                <p class="form__error"><?= $this->error ?></p>
+                <?= parent::printErrors() ?>
             </label>
         <?php }
     }

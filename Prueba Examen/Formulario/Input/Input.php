@@ -8,14 +8,16 @@
         protected $name;
         protected $value;
         protected $regex;
-        protected $error;
+        protected $error = [];
+        protected static $inputs = [];
 
         protected function __construct($name, $value) {
             $this->name = $name;
             $this->value = $value;
+            self::$inputs[] = $this;
         }
 
-        protected function cleanData(&$data) {
+        protected final function cleanData(&$data) {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
@@ -25,14 +27,20 @@
             self::cleanData($this->value);
 
             if (empty($this->value)) {
-                $this->error = $this->name . " no puede estar vacío";
+                $this->error[] = $this->name . " no puede estar vacío";
             }
         }
 
         public abstract function printInput();
 
+        protected final function printErrors() {
+            foreach ($this->error as $e) : ?>
+                <p class="form__error"><?= $e ?></p>
+            <?php endforeach;
+        }
+
         public function getType() {
-            return $this->type->value;
+            return $this->type;
         }
 
         public function setType($type) {
@@ -56,7 +64,7 @@
         }
 
         public function getRegex() {
-            return $this->regex->value;
+            return $this->regex;
         }
 
         public function setRegex($regex) {
@@ -69,6 +77,14 @@
 
         public function setError($error) {
             $this->error = $error;
+        }
+
+        public static function getInputs() {
+            return self::$inputs;
+        }
+
+        public static function setInputs($inputs) {
+            self::$inputs = $inputs;
         }
     }
 ?>

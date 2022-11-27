@@ -1,17 +1,26 @@
 <?php
     namespace Input;
 
-    use Utils\InputType, Utils\Regex;
+    use Utils\Placeholder, Utils\InputType, Utils\Regex;
 
     class Textarea extends Input {
-        public function __construct($name, $value) {
-            $this->type = InputType::MAIL;
+        public function __construct($name, $value, $placeholder = null) {
+            $this->type = InputType::MAIL->value;
             $this->regex = null;
+            $this->placeholder = $placeholder;
             parent::__construct($name, $value);
         }
 
-        public function printInput() {
-            return true;
+        public function validate() {
+            parent::validate();
         }
+
+        public function printInput() { ?>
+            <label class="form__label">
+                <?= ucfirst($this->name) ?>:
+                <textarea required class="form__input" name="<?= $this->name ?>" placeholder="<?= $this->placeholder ?>"><?= $this->value ?></textarea>
+                <?= parent::printErrors() ?>
+            </label>
+        <?php }
     }
 ?>

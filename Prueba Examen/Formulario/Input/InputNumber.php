@@ -4,14 +4,10 @@
     use Utils\Placeholder, Utils\InputType, Utils\Regex;
 
     class InputNumber extends Input {
-        private $min;
-        private $max;
-
-        public function __construct($name, $value, $min, $max) {
-            $this->type = InputType::NUMBER;
-            $this->regex = Regex::NUMBER;
-            $this->min = $min;
-            $this->max = $max;
+        public function __construct($name, $value, $placeholder = null) {
+            $this->type = InputType::NUMBER->value;
+            $this->regex = Regex::NUMBER->value;
+            $this->placeholder = $placeholder;
             parent::__construct($name, $value);
         }
 
@@ -19,15 +15,16 @@
             parent::validate();
 
             if (!preg_match($this->regex, $this->value)) {
-                if ($this->value < $this->min || $this->value > $this->max) {
-                    $this->error = $this->name . " no está comprendido entre los valores " . $this->min . " y " . $this->max;
-                }
-                $this->error = $this->name . " no es correcto";
+                $this->error[] = $this->name . " no es correcto";
             }
         }
 
-        public function printInput() {
-            return true;
-        }
+        public function printInput() { ?>
+            <label class="form__label">
+                <?= ucfirst($this->name) ?>:
+                <input required class="form__input" type="<?= $this->type ?>" name="<?= $this->name ?>" value="<?= $this->value ?>" placeholder="<?= $this->placeholder ?>">
+                <?= parent::printErrors() ?>
+            </label>
+        <?php }
     }
 ?>
