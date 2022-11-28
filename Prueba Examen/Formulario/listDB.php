@@ -12,6 +12,15 @@
 
     $dbh = new DB($dsn, $user, $password, $options);
     $sth = $dbh->selectAll();
+    print_r($_POST);
+
+    if (isset($_POST["delete"]) && isset($_POST["id"])) {
+        $dlh = $dbh->deleteRows($_POST["id"]);
+
+        header("Location: ./listDB.php?success=true");
+
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -24,21 +33,34 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <table>
-        <caption>Lista Bases</caption>
-        <tr>
-            <?php foreach ($sth[0] as $key => $value) : ?>
-                <th><?= $key ?></th>
-            <?php endforeach; ?>
-        </tr>
-        <?php foreach ($sth as $row) : ?>
+    <form action="" method="post">
+        <?php if ($_GET["success"]) : ?>
+            <p class="form__success">Se ha borrado correctamente</p>
+        <?php endif; ?>
+        <table>
+            <caption>Lista Bases</caption>
             <tr>
-                <?php foreach ($row as $column) : ?>
-                    <td><?= $column ?></td>
+                <th><!--Vacío--></th>
+                <?php foreach ($sth[0] as $key => $value) : ?>
+                    <th><?= $key ?></th>
                 <?php endforeach; ?>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            <?php foreach ($sth as $row) : ?>
+                <tr>
+                    <?php foreach ($row as $column => $value) : 
+                        if ($column == "id") : ?>
+                            <td><input type="checkbox" name="<?= $column ?>[]" value="<?= $value ?>"></td>
+                            <td><?= $value ?></td>
+                        <?php else : ?>
+                            <td><?= $value ?></td>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        <input type="submit" name="delete" value="Borrar">
+    </form>
+
     <a href="./index.php">Volver</a>
 </body>
 </html>

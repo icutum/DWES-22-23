@@ -17,7 +17,11 @@
         }
 
         public function insertValues($form) {
-            $sth = self::$instance->prepare("INSERT INTO prueba VALUES (:text, :password, :number, :mail, :date, :checkbox, :radio, :selected, :textarea)");
+            $sth = self::$instance->prepare(
+                "INSERT INTO prueba (text, password, number, mail, date, checkbox, radio, selected, textarea)
+                VALUES (:text, :password, :number, :mail, :date, :checkbox, :radio, :selected, :textarea)"
+            );
+
             $sth->execute([
                 ":text" => $form->getText()->getValue(),
                 ":password" => password_hash($form->getPassword()->getValue(), PASSWORD_DEFAULT),
@@ -36,6 +40,15 @@
             $sth->execute();
 
             return $sth->fetchAll();
+        }
+
+        public function deleteRows($post) {
+            $sth = self::$instance->prepare(
+                sprintf("DELETE FROM prueba WHERE id IN (%s)",
+                implode(",", array_fill(0, count($post), "?")))
+            );
+
+            $sth->execute($post);
         }
 
         public static function getInstance() {
