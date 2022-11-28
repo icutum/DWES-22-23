@@ -20,7 +20,7 @@
             $options = [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ];
-            
+
             $dbh = new DB($dsn, $user, $password, $options);
             $dbh->insertValues($form);
 

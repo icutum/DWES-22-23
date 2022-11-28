@@ -32,9 +32,9 @@
             </tr>
             <?php foreach (explode("\n", $csv) as $line) : ?>
                 <tr>
-                    <?php foreach (explode(",", $line) as $value) : ?>
+                    <?php if (!empty($line)) : foreach (explode(",", $line) as $value) : ?>
                         <td><?= $value ?></td>
-                    <?php endforeach; ?>
+                    <?php endforeach; endif; ?>
                 </tr>
             <?php endforeach; ?>
         </table>
