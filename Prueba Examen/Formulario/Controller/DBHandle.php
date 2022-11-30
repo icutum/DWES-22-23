@@ -42,6 +42,17 @@
             return $sth->fetchAll();
         }
 
+        public function selectSearchBar($field) {
+            if (isset($field)) {
+                $sth = self::$instance->prepare('SELECT * FROM prueba WHERE text LIKE CONCAT("%", :text, "%")');
+                $sth->execute([":text" => $field]);
+            } else {
+                return self::selectAll();
+            }
+
+            return $sth->fetchAll();
+        }
+
         public function deleteRows($post) {
             $sth = self::$instance->prepare(
                 sprintf("DELETE FROM prueba WHERE id IN (%s)",
@@ -50,6 +61,43 @@
 
             $sth->execute($post);
         }
+
+        public function printTable($sth) { ?>
+            <form action="" method="get">
+                <label for="">
+                    <input type="text" name="text" value="<?= $_GET["text"] ?>" placeholder="Filtrar por text...">
+                    <input type="submit" name="search" value="Buscar">
+                </label>
+            </form>
+            <form action="" method="post">
+                <?php if ($_GET["delete-success"]) : ?>
+                    <p class="form__success">Se ha borrado correctamente</p>
+                <?php endif; ?>
+
+                <table>
+                    <caption>Lista Bases</caption>
+                    <tr>
+                        <th><!--Vacío--></th>
+                        <?php foreach ($sth[0] as $key => $value) : ?>
+                            <th><?= $key ?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                    <?php foreach ($sth as $row) : ?>
+                        <tr>
+                            <?php foreach ($row as $column => $value) : 
+                                if ($column == "id") : ?>
+                                    <td><input type="checkbox" name="<?= $column ?>[]" value="<?= $value ?>"></td>
+                                    <td><?= $value ?></td>
+                                <?php else : ?>
+                                    <td><?= $value ?></td>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+                <input type="submit" name="delete" value="Borrar">
+            </form>
+        <?php }
 
         public static function getInstance() {
             return self::$instance;

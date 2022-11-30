@@ -11,13 +11,13 @@
     ];
 
     $dbh = new DB($dsn, $user, $password, $options);
-    $sth = $dbh->selectAll();
-    print_r($_POST);
+
+    $sth = $dbh->selectSearchBar($_GET["text"]);
 
     if (isset($_POST["delete"]) && isset($_POST["id"])) {
         $dlh = $dbh->deleteRows($_POST["id"]);
 
-        header("Location: ./listDB.php?success=true");
+        header("Location: ./listDB.php?delete-success=true");
 
         exit();
     }
@@ -33,33 +33,7 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <form action="" method="post">
-        <?php if ($_GET["success"]) : ?>
-            <p class="form__success">Se ha borrado correctamente</p>
-        <?php endif; ?>
-        <table>
-            <caption>Lista Bases</caption>
-            <tr>
-                <th><!--Vacío--></th>
-                <?php foreach ($sth[0] as $key => $value) : ?>
-                    <th><?= $key ?></th>
-                <?php endforeach; ?>
-            </tr>
-            <?php foreach ($sth as $row) : ?>
-                <tr>
-                    <?php foreach ($row as $column => $value) : 
-                        if ($column == "id") : ?>
-                            <td><input type="checkbox" name="<?= $column ?>[]" value="<?= $value ?>"></td>
-                            <td><?= $value ?></td>
-                        <?php else : ?>
-                            <td><?= $value ?></td>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <input type="submit" name="delete" value="Borrar">
-    </form>
+    <?= $dbh->printTable($sth) ?>
 
     <a href="./index.php">Volver</a>
 </body>
