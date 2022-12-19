@@ -1,77 +1,104 @@
 <?php
 
 function clean_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 
-$login = "";
+$mail = "";
 $pass = "";
 $errorList = [];
 
-if(isset($_POST["submit"])) {
-    if(isset($_POST["login"])){
-        $login = clean_input($_POST["login"]);
+$redirect = isset($_GET["url"])
+    ? $_GET["url"]
+    : $_POST["url"];
+
+if (isset($_POST["submit"])) {
+    if (isset($_POST["mail"])) {
+        $mail = clean_input($_POST["mail"]);
     }
 
-    if (!filter_var($login, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
         $errorList[] = "Usuario inválido";
-        //http://php.net/manual/es/filter.filters.php
     }
 
-
-    if(isset($_POST["password"])){
-        $password = clean_input($_POST["password"]);
+    if (isset($_POST["pass"])) {
+        $pass = clean_input($_POST["pass"]);
     }
 
-    $us=$_POST['usuario'];
-    $pass=$_POST['pass'];
-    // $sql="SELECT * FROM usuarios WHERE user = ? AND password=?";
+    $dsn = "mysql:host=localhost;dbname=dwes";
+    $user = $password = "dwes";
+    $options = [
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ];
 
-    if( $login == "asd@asd.es" && $password == "1234" ){
-        header('Location: premio.php');
+    $dbh = new PDO($dsn, $user, $password, $options);
+    $sth = $dbh->prepare("SELECT pass FROM usuarios WHERE mail = :mail");
+    $sth->execute([
+        ":mail" => $mail,
+    ]);
+
+    $hash = $sth->fetchAll()[0]["pass"];
+
+    if (password_verify($pass, $hash)) {
+        // Bonus: Semos pogramadores güenos.
+        // Haced un reenvío a la página privada que quería visitar.
+        session_start();
+
+        $_SESSION["mail"] = $mail;
+
+        header("Location: $redirect");
+
         exit;
-    }else{
-        $errorList[] = "Clave errónea";
+
+    } else {
+        $errorList[] = "Correo o contraseña incorrecto";
     }
 }
 
-
-if(isset($_GET["error"])){
+if (isset($_GET["error"])) {
     $errorList[] = $_GET["error"];
 }
 
 ?>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" media="all" href="css/estilo.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" media="all" href="css/estilo.css">
 </head>
 <body>
-<form action="login.php" method="post" class="login">
-    <p>
-      <label for="login">Email:</label>
-      <input type="text" name="login" id="login" value="<?=$login?>">
-    </p>
+    <?php require_once("./menu.php"); ?>
 
-    <p>
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" value="">
-    </p>
+    <form action="login.php" method="post" class="login">
+        <p>
+            <label for="mail">Email:</label>
+            <input type="text" name="mail" id="mail" value="<?= $mail ?>">
+        </p>
 
-    <?php if (count($errorList)>0) { ?>
-    <p>
-      <?php foreach($errorList as $error) { ?>
-        <div class="error"><?= $error ?></div>
-      <?php } ?>
-    </p>
-    <?php }?>
+        <p>
+            <label for="pass">Password:</label>
+            <input type="password" name="pass" id="pass" value="">
+        </p>
 
-    <p class="login-submit">
-      <label for="submit">&nbsp;</label>
-      <button type="submit" name="submit" class="login-button">Login</button>
-    </p>
-</form>
+        <input type="hidden" name="url" value="<?= $redirect ?>">
+
+        <?php if (count($errorList) > 0) { ?>
+            <p>
+                <?php foreach ($errorList as $error) { ?>
+                    <div class="error"><?= $error ?></div>
+                <?php } ?>
+            </p>
+        <?php } ?>
+
+        <p class="login-submit">
+            <label for="submit">&nbsp;</label>
+            <button type="submit" name="submit" class="login-button">Login</button>
+        </p>
+    </form>
 </body>
 </html>

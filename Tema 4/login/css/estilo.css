@@ -8,6 +8,10 @@ body {
 	text-align: center;
 }
 
+p {
+  color: white;
+}
+
 h1 {
 	padding-top: 0.5em;
 	font-size: 8em;

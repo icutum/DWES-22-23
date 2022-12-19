@@ -1,19 +1,17 @@
-<?php
+<?php require_once("./redirect.php"); ?>
 
-
-if( true ){
-    header('Location: login.php?error=No implementado');
-    exit;
-}
-
-?>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <link rel="stylesheet" type="text/css" media="all" href="css/estilo.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privado 2</title>
 </head>
 <body>
-<h1>Bienvenido!!</h1>
-<?php include('menu.php')?>
-<p>Información solo para gente autentificada</p>
+    <?php include('menu.php'); ?>
+
+    <h1>Bienvenido!!</h1>
+    <p>Información solo para gente autentificada 2</p>
 </body>
 </html>
