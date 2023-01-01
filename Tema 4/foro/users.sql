@@ -1,10 +1,10 @@
 DROP TABLE users;
 
 CREATE TABLE users(
-    id MEDIUMINT NOT NULL AUTO_INCREMENT,
-    user       varchar(255) UNIQUE NOT NULL,
-    mail       varchar(255) UNIQUE NOT NULL,
-    password   varchar(255) NOT NULL,
+    id                  MEDIUMINT NOT NULL AUTO_INCREMENT,
+    user                varchar(255) UNIQUE NOT NULL,
+    mail                varchar(255) UNIQUE NOT NULL,
+    password            varchar(255) NOT NULL,
     PRIMARY KEY (id)
 );
 

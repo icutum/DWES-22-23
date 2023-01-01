@@ -11,7 +11,7 @@
         <?php
             if (isset($user)) : ?>
                 <li><a href="./logout.php">Cerrar sesión</a></li>
-                <li><?= ucfirst($user) ?></li>
+                <li><?= $user ?></li>
             <?php else : ?>
                 <li><a href="./login.php?redirect=<?= $url ?>">Iniciar sesión</a></li>
             <?php endif;

@@ -64,31 +64,22 @@
                     ORDER BY timestamp DESC'
             );
 
-            $table = $sth->fetchAll(); ?>
+            return $sth->fetchAll();
+        }
 
-            <table class="posts">
-                <tr class="posts__row">
-                    <th class="posts__heading">Fecha y hora</th>
-                    <th class="posts__heading">Usuario</th>
-                    <th class="posts__heading">Título</th>
-                </tr>
-                <?php foreach ($table as $row) : ?>
+        public function selectPost($id) {
+            $sth = self::$instance->prepare(
+                'SELECT u.user, p.*
+                    FROM users u, posts p
+                    WHERE p.id_post = :id_post
+                    AND p.id_user = u.id'
+            );
 
-                    <tr class="posts__row">
-                        <td class="posts__column">
-                            <a class="posts__link" href="./post.php?id=<?= $row['id_post'] ?>">
-                                <?= date("d/m/Y H:i",$row['timestamp']) ?>
-                            </a>
-                        </td>
-                        <td class="posts__column"><?= $row["user"] ?></td>
-                        <td class="posts__column"><?= $row['title'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        <?php }
+            $sth->execute([
+                ":id_post" => $id
+            ]);
 
-        public function selectPost($get) {
-            
+            return $sth->fetch();
         }
 
         public function insertPost($form) {
@@ -106,6 +97,41 @@
             $sth->execute([
                 ":id_user" => $id,
                 ":title" => $form->getTitle()->getValue(),
+                ":subject" => $form->getSubject()->getValue(),
+                ":timestamp" => $_SERVER["REQUEST_TIME"]
+            ]);
+        }
+
+        public function selectReplies($id) {
+            $sth = self::$instance->prepare(
+                "SELECT u.user, r.subject, r.timestamp
+                    FROM users u, replies r
+                    WHERE u.id = r.id_user
+                    AND r.id_post = :id_post"
+            );
+
+            $sth->execute([
+                ":id_post" => $id
+            ]);
+
+            return $sth->fetchAll();
+        }
+
+        public function insertReply($form) {
+            $user = $_SESSION["user"];
+            $userQuery = self::$instance->query(
+                "SELECT id FROM users WHERE user = '$user'"
+            );
+            $id = $userQuery->fetch()["id"];
+
+            $sth = self::$instance->prepare(
+                "INSERT INTO replies (id_user, id_post, subject, timestamp)
+                VALUES (:id_user, :id_post, :subject, :timestamp)"
+            );
+
+            $sth->execute([
+                ":id_user" => $id,
+                ":id_post" => $_GET["id"],
                 ":subject" => $form->getSubject()->getValue(),
                 ":timestamp" => $_SERVER["REQUEST_TIME"]
             ]);
