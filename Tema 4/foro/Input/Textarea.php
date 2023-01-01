@@ -1,12 +1,11 @@
 <?php
     namespace Input;
 
-    use Utils\Placeholder, Utils\InputType, Utils\Regex;
+    use Utils\Placeholder, Utils\InputType;
 
     class Textarea extends Input {
         public function __construct($name, $value, $placeholder = null) {
             $this->type = InputType::TEXTAREA->value;
-            $this->regex = null;
             $this->placeholder = $placeholder;
             parent::__construct($name, $value);
         }

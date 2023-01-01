@@ -56,6 +56,61 @@
             return empty($row);
         }
 
+        public function selectAllPosts() {
+            $sth = self::$instance->query(
+                'SELECT u.user, p.id_post, p.title, p.timestamp
+                    FROM users u, posts p 
+                    WHERE u.id = p.id_user
+                    ORDER BY timestamp DESC'
+            );
+
+            $table = $sth->fetchAll(); ?>
+
+            <table class="posts">
+                <tr class="posts__row">
+                    <th class="posts__heading">Fecha y hora</th>
+                    <th class="posts__heading">Usuario</th>
+                    <th class="posts__heading">Título</th>
+                </tr>
+                <?php foreach ($table as $row) : ?>
+
+                    <tr class="posts__row">
+                        <td class="posts__column">
+                            <a class="posts__link" href="./post.php?id=<?= $row['id_post'] ?>">
+                                <?= date("d/m/Y H:i",$row['timestamp']) ?>
+                            </a>
+                        </td>
+                        <td class="posts__column"><?= $row["user"] ?></td>
+                        <td class="posts__column"><?= $row['title'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php }
+
+        public function selectPost($get) {
+            
+        }
+
+        public function insertPost($form) {
+            $user = $_SESSION["user"];
+            $userQuery = self::$instance->query(
+                "SELECT id FROM users WHERE user = '$user'"
+            );
+            $id = $userQuery->fetch()["id"];
+
+            $sth = self::$instance->prepare(
+                "INSERT INTO posts (id_user, title, subject, timestamp)
+                VALUES (:id_user, :title, :subject, :timestamp)"
+            );
+
+            $sth->execute([
+                ":id_user" => $id,
+                ":title" => $form->getTitle()->getValue(),
+                ":subject" => $form->getSubject()->getValue(),
+                ":timestamp" => $_SERVER["REQUEST_TIME"]
+            ]);
+        }
+
         public static function getInstance() {
             return self::$instance;
         }

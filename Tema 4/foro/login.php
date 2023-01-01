@@ -1,5 +1,5 @@
 <?php
-    require("./Utils/Autoload.php");
+    require_once("./Utils/Autoload.php");
 
     use Controller\LoginForm as LoginForm;
 
