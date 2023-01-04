@@ -1,7 +1,9 @@
 <?php
+    require_once("./dbh.php");
+
     session_start();
 
-    @$user = $_SESSION["user"];
+    @$user = $dbh->getUserName($_SESSION["userID"]);
     $url = $_SERVER["REQUEST_URI"];
 ?>
 

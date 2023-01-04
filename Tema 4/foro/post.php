@@ -14,32 +14,38 @@
 
             $dbh->insertReply($form);
 
-            header("Location: post.php?id=" . $_GET["id"]);
+            header("Location: post.php?id=$id&page=$page");
 
             exit();
         }
     }
 
-    $id = $dbh->selectPost($_GET["id"]);
-    $replies = $dbh->selectReplies($_GET["id"]);
+    $id = $_GET["id"];
+    $page = isset($_GET["page"])
+        ? $_GET["page"]
+        : 1;
 
-    function printPost($table) { ?>
+    $posts = $dbh->selectPost($id);
+    $replies = $dbh->selectReplies($id, $page);
+    $pagesPerPost = $dbh->getReplyPages($id);
+
+    function printPost($post) { ?>
         <article class="post">
             <section class="post__profile-info">
                 <img class="post__profile-image" src="./images/profile.png" alt="Foto de perfil">
                 <div>
-                    <p><?= $table["user"] ?></p>
-                    <p><?= date("d/m/Y H:i",$table['timestamp']) ?></p>
+                    <p><?= $post["user"] ?></p>
+                    <p><?= date("d/m/Y H:i", $post['timestamp']) ?></p>
                 </div>
             </section>
             <section class="post__content">
-                <h2 class="post__title"><?= $table["title"] ?></h2>
-                <p class="post__subject"><?= $table["subject"] ?></p>
+                <h2 class="post__title"><?= $post["title"] ?></h2>
+                <p class="post__subject"><?= $post["subject"] ?></p>
             </section>
         </article>
     <?php }
 
-    function printReplies($replies) {
+    function printReplies($replies, $repliesPerPage) {
         foreach ($replies as $reply) : ?>
             <article class="reply">
                 <section class="reply__profile-info">
@@ -53,8 +59,14 @@
                     <p class="reply__subject"><?= $reply["subject"] ?></p>
                 </section>
             </article>
-        <?php endforeach;
-    }
+        <?php endforeach; ?>
+
+        <div class="post__pages">
+            <?php for ($i = 1; $i <= $repliesPerPage; $i++) : ?>
+                <a class="post__page" href="post.php?id=<?= $_GET["id"] ?>&page=<?= $i ?>"><?= $i ?></a>
+            <?php endfor; ?>
+        </div>
+    <?php }
 ?>
 
 <!DOCTYPE html>
@@ -65,13 +77,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/post.css">
 </head>
 <body>
     <?php require_once("./header.php") ?>
     <main class="main">
-        <?= printPost($id) ?>
-        <?= printReplies($replies) ?>
+        <?= printPost($posts) ?>
         <?= $form->printForm("Responder") ?>
+        <?= printReplies($replies, $pagesPerPost) ?>
     </main>
 </body>
 </html>

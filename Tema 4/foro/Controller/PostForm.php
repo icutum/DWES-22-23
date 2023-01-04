@@ -5,7 +5,6 @@
         protected static $instance;
         protected $title;
         protected $subject;
-        protected $redirect;
 
         public static function singleton() {
             if(!isset(self::$instance)) {
@@ -17,16 +16,6 @@
         public function createInputs($post) {
             @$this->title = new \Input\InputText("titulo", $post["titulo"], "Título de la publicación");
             @$this->subject = new \Input\Textarea("mensaje", $post["mensaje"], "Aquí va el mucho texto shur");
-
-            if (isset($_GET["redirect"])) {
-                $url = $_GET["redirect"];
-            } else if (isset($_POST["redirect"])) {
-                $url = $_POST["redirect"];
-            } else {
-                $url = "index.php";
-            }
-
-            @$this->redirect = new \Input\InputHidden("redirect", $url);
         }
 
         public function getTitle() {

@@ -86,6 +86,14 @@ body {
     height: 1.5em;
 }
 
+/* Pagination links */
+
+.post__pages {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
 /* Specific post */
 
 .post,
@@ -117,4 +125,27 @@ body {
 
 .post__title {
     margin: 0 0 1rem;
+}
+
+/* Login/Signin */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 90vh;
+}
+
+.form__input,
+.form__label {
+    display: block;
+}
+
+.form__input {
+    width: 50rem;
+}
+
+input[type=submit] {
+    margin: 2.5rem 0 0;
 }

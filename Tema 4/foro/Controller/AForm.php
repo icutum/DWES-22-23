@@ -7,7 +7,7 @@
         public abstract function createInputs($post);
 
         public function printForm($submitMessage) { ?>
-            <form action="" method="post">
+            <form class="form" action="" method="post">
                 <?php foreach ($this as $input) :
                     $input->printInput();
                 endforeach; ?>

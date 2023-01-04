@@ -13,10 +13,10 @@
             require_once("./dbh.php");
 
             if ($dbh->isUserValid($form)) {
-                $_SESSION["user"] = $form->getUser()->getValue();
+                $username = $form->getUser()->getValue();
+                $_SESSION["userID"] = $dbh->getUserID($username);
 
                 $url = $form->getRedirect()->getValue();
-
                 header("Location: $url");
 
                 exit();
@@ -34,6 +34,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <?php $form->printForm("Iniciar sesión") ?>
