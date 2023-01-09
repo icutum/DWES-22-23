@@ -8,6 +8,11 @@
     $form = ReplyForm::singleton();
     $form->createInputs($_POST);
 
+    $id = $_GET["id"];
+    $page = isset($_GET["page"])
+        ? $_GET["page"]
+        : 1;
+
     if (isset($_POST["submit"])) {
         if ($form->isValid()) {
             require_once("./dbh.php");
@@ -19,11 +24,6 @@
             exit();
         }
     }
-
-    $id = $_GET["id"];
-    $page = isset($_GET["page"])
-        ? $_GET["page"]
-        : 1;
 
     $posts = $dbh->selectPost($id);
     $replies = $dbh->selectReplies($id, $page);
