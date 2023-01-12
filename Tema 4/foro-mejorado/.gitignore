@@ -1,1 +1,3 @@
-src/config.php
+.env
+vendor
+composer*

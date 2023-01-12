@@ -1,5 +1,19 @@
 # Foro
 
+## Dependencias
+
+Este proyecto utiliza composer como gestor de paquetes. En distribuciones basadas en Arch Linux, el comando para instalarlo es el siguiente:
+
+```s
+$ sudo pacman -Syu composer
+```
+
+Para instalar las dependencias del proyecto, sobre la raíz ejecutaremos los siguientes comandos:
+
+```s
+$ composer require vlucas/dotenv phpmailer/phpmailer
+```
+
 ## Instalación
 
 Crea las bases de datos shur:
