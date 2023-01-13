@@ -1,5 +1,6 @@
 <?php
     require_once("../src/init.php");
+    require_once("../src/Mailer.php");
 
     if (isset($_POST["registrar"])) {
         $db->ejecuta(
@@ -9,7 +10,18 @@
             $_POST["correo"]
         );
 
-        header("Location: listado.php");
+        $insertado = $db->getExecuted();
+
+        if ($insertado) {
+            Mailer::sendEmail(
+                $_POST["correo"],
+                "¡Gracias por registrarte, " . $_POST["nombre"] . "!",
+                "Bienvenido a linkenin y todas esas movidas"
+            );
+
+            header("Location: listado.php");
+        }
+
     }
 ?>
 
