@@ -1,8 +1,7 @@
 <?php
     require_once("../src/init.php");
 
-    print_r($_SESSION);
-    print_r($_POST);
+    // Comprobar si el usuario tiene la cookie de sesión y logearlo automáticamente
 
     if (isset($_POST["login"])) {
         $nombre = $_POST["nombre"];
@@ -17,6 +16,7 @@
             $_SESSION["nombre"] = $user["nombre"];
 
             if (isset($recuerdame) && $recuerdame == "on") {
+                // Hacer una query que recupere si el usuario ya tenia un token y en caso afirmativo refrescar la duración
                 $token = bin2hex(openssl_random_pseudo_bytes($_ENV["TOKEN_LENGTH"]));
 
                 $db->ejecuta("INSERT INTO tokens (id_usuario, valor) VALUES (?, ?)", $_SESSION["id"], $token);
@@ -36,9 +36,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php require_once("../src/etiquetas-cabecera.php"); ?>
     <title>Login | <?= $title ?></title>
 </head>
 <body>

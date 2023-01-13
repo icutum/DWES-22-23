@@ -8,13 +8,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php require_once("../src/etiquetas-cabecera.php"); ?>
     <title><?= $title ?></title>
 </head>
 <body>
-    <h1>Buenas shurs</h1>
+    <?php require_once("../src/nav.php"); ?>
+    <h1 class="bg-primary-subtle">Buenas shurs</h1>
     <p>Nombres:</p>
     <?php foreach ($data as $d) : ?>
         <p><?= $d['nombre'] ?></p>
