@@ -4,14 +4,14 @@
 
 Este proyecto utiliza composer como gestor de paquetes. En distribuciones basadas en Arch Linux, el comando para instalarlo es el siguiente:
 
-```s
-$ sudo pacman -Syu composer
+```properties
+$ sudo pacman -Sy composer
 ```
 
-Para instalar las dependencias del proyecto, sobre la raíz ejecutaremos los siguientes comandos:
+Para instalar las dependencias del proyecto, sobre la raíz del mismo ejecutaremos el siguiente comando:
 
-```s
-$ composer require vlucas/dotenv phpmailer/phpmailer
+```properties
+$ composer require vlucas/phpdotenv phpmailer/phpmailer
 ```
 
 ## Instalación
@@ -51,6 +51,7 @@ CREATE TABLE tokens (
 ```
 
 ## Ejecución
-```bash
-./run.sh
+```properties
+$ ./run.sh [-p <puerto>]
 ```
+NOTA: El puerto debe estar comprendido entre 1024 y 65535, ambos inclusive
