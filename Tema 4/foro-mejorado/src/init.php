@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     require_once("DWESBaseDatos.php");
 
     // Cargar variables de entorno
