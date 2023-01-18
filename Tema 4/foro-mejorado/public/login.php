@@ -1,7 +1,7 @@
 <?php
     require_once("../src/init.php");
 
-    // Comprobar si el usuario tiene la cookie de sesión y logearlo automáticamente
+    const CHECKBOX_ON = "on";
 
     if (isset($_POST["login"])) {
         $nombre = $_POST["nombre"];
@@ -15,15 +15,13 @@
             $_SESSION["id"] = $user["id"];
             $_SESSION["nombre"] = $user["nombre"];
 
-            if (isset($recuerdame) && $recuerdame == "on") {
-                // Hacer una query que recupere si el usuario ya tenia un token y en caso afirmativo refrescar la duración
+            if (isset($recuerdame) && $recuerdame == CHECKBOX_ON) {
                 $token = bin2hex(openssl_random_pseudo_bytes($_ENV["TOKEN_LENGTH"]));
 
                 $db->ejecuta("INSERT INTO tokens (id_usuario, valor) VALUES (?, ?)", $_SESSION["id"], $token);
 
                 setcookie("recuerdame", $token, [
-                    "expires" => time() + 7 * 24 * 60 * 60,
-                    // "secure" => true,
+                    "expires" => time() + (7 * 24 * 60 * 60),
                     "httponly" => true
                 ]);
             }
@@ -40,6 +38,7 @@
     <title>Login | <?= $title ?></title>
 </head>
 <body>
+    <?php require_once("../src/nav.php"); ?>
     <form action="" method="post">
         User: <input type="text" name="nombre">
         Password: <input type="password" name="passwd">

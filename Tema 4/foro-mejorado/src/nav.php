@@ -1,10 +1,7 @@
 <?php
     const ANON = "Anónimo";
 
-    $NOMBRE_USUARIO = isset($_SESSION["nombre"])
-        ? $_SESSION["nombre"]
-        : ANON
-    ;
+    $NOMBRE_USUARIO = $_SESSION["nombre"] ?? ANON;
 
     $ID_USUARIO = $_SESSION["id"];
 
@@ -31,7 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link mx-5 active" aria-current="page" href="#">Listado</a>
+                    <a class="nav-link mx-5 active" aria-current="page" href="listado.php">Listado</a>
                 </li>
                 <?php
                     if ($NOMBRE_USUARIO == ANON) :

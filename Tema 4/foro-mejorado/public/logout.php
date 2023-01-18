@@ -3,5 +3,7 @@
 
     session_destroy();
 
+    setcookie("recuerdame", null);
+
     header("Location: listado.php");
 ?>

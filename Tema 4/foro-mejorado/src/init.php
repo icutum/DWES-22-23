@@ -1,14 +1,13 @@
 <?php
     session_start();
 
-    require_once("DWESBaseDatos.php");
-
     // Cargar variables de entorno
     require '../vendor/autoload.php';
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 
     // Inicializar conexión BD
+    require_once("DWESBaseDatos.php");
     $db = DWESBaseDatos::obtenerInstancia();
     $db->inicializa(
         $_ENV['DB_HOST'],
@@ -16,5 +15,12 @@
         $_ENV['DB_PASS']
     );
 
+    // Cargar clase Mailer
+    require_once("Mailer.php");
+
+    // Comprobar token
+    require_once("comprobar-token.php");
+
+    // Título de las páginas
     $title = $_ENV['TITLE'];
 ?>

@@ -1,6 +1,5 @@
 <?php
     require_once("../src/init.php");
-    require_once("../src/Mailer.php");
 
     if (isset($_POST["registrar"])) {
         $db->ejecuta(
@@ -32,6 +31,7 @@
     <title>Regístrate | <?= $title ?></title>
 </head>
 <body>
+    <?php require_once("../src/nav.php"); ?>
     <form action="registro.php" method="post">
         Nombre: <input type="text" name="nombre" id="nombre">
         Password: <input type="password" name="passwd" id="passwd">

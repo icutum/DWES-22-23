@@ -19,9 +19,8 @@
         private function __construct() { } // Solo se puede crear desde el método obtenerInstancia
 
         public static function obtenerInstancia() {
-            if (self::$instanciaUnica == null)
-            {
-            self::$instanciaUnica = new DWESBaseDatos();
+            if (self::$instanciaUnica == null) {
+                self::$instanciaUnica = new DWESBaseDatos();
             }
 
             return self::$instanciaUnica;
@@ -37,12 +36,12 @@
             $options  = null
         ) {
             if($motor != "sqlite") {
-            $cadenaConexion = "$motor:host=$serverIp;dbname=$basedatos;charset=$charset";
+                $cadenaConexion = "$motor:host=$serverIp;dbname=$basedatos;charset=$charset";
             } else {
-            $cadenaConexion = "$motor:$basedatos";
+                $cadenaConexion = "$motor:$basedatos";
             }
 
-            if($options == null){
+            if($options == null) {
                 $options = [
                 PDO::ATTR_EMULATE_PREPARES   => false, // La preparación de las consultas no es simulada
                                                         // más lento pero más seguro
@@ -53,14 +52,14 @@
             }
 
             try {
-            if($motor != "sqlite") {
-                $this->conexion = new PDO($cadenaConexion, $usuario, $pass, $options);
-            } else {
-                $this->conexion = new PDO($cadenaConexion, null, null, $options);
-            }
+                if ($motor != "sqlite") {
+                    $this->conexion = new PDO($cadenaConexion, $usuario, $pass, $options);
+                } else {
+                    $this->conexion = new PDO($cadenaConexion, null, null, $options);
+                }
             } catch (Exception $e) {
-            error_log($e->getMessage());
-            exit('No ha sido posible la conexión');
+                error_log($e->getMessage());
+                exit('No ha sido posible la conexión');
             }
         }
 
@@ -103,6 +102,33 @@
 
         function __destruct(){
             $this->conexion = null;
+        }
+
+        function validarToken($token) {
+            $this->ejecuta(
+                "SELECT * FROM tokens WHERE valor = ?",
+                $token
+            );
+
+            return count($this->obtenElDato()) > 0;
+        }
+
+        function obtenerId($token) {
+            $this->ejecuta(
+                "SELECT id_usuario FROM tokens WHERE valor = ?",
+                $token
+            );
+
+            return $this->obtenElDato()["id_usuario"];
+        }
+
+        function obtenerNombre($id) {
+            $this->ejecuta(
+                "SELECT nombre FROM usuarios WHERE id = ?",
+                $id
+            );
+
+            return $this->obtenElDato()["nombre"];
         }
     }
 ?>
