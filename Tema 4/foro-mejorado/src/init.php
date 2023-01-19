@@ -15,11 +15,11 @@
         $_ENV['DB_PASS']
     );
 
-    // Cargar clase Mailer
-    require_once("Mailer.php");
-
     // Comprobar token
     require_once("comprobar-token.php");
+
+    // Cargar clase Mailer
+    require_once("Mailer.php");
 
     // Título de las páginas
     $title = $_ENV['TITLE'];

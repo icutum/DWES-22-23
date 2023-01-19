@@ -2,7 +2,7 @@
     require_once("../src/init.php");
 
     $db->ejecuta("SELECT * FROM usuarios");
-    $data = $db->obtenDatos();
+    $usuario = $db->obtenDatos();
 ?>
 
 <!DOCTYPE html>
@@ -13,10 +13,16 @@
 </head>
 <body>
     <?php require_once("../src/nav.php"); ?>
-    <h1 class="bg-primary-subtle">Buenas shurs</h1>
-    <p>Nombres:</p>
-    <?php foreach ($data as $d) : ?>
-        <p><?= $d['nombre'] ?></p>
-    <?php endforeach ?>
+    <div class="container mt-5 w-50">
+        <h2 class="mb-3">Listado de shurs</h2>
+
+        <ul>
+            <?php foreach ($usuario as $u) : ?>
+                <li class="container">
+                    <?= $u['nombre'] ?>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    </div>
 </body>
 </html>

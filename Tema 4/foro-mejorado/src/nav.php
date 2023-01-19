@@ -13,7 +13,8 @@
     ];
 
     $PAGINAS_USUARIO = [
-        "detalle.php?id=$ID_USUARIO" => "Mi perfil",
+        "detalle.php" => "Mi perfil",
+        "edit.php" => "Editar perfil",
         "logout.php" => "Cerrar sesión"
     ];
 ?>

@@ -105,30 +105,30 @@
         }
 
         function validarToken($token) {
-            $this->ejecuta(
+            self::ejecuta(
                 "SELECT * FROM tokens WHERE valor = ?",
                 $token
             );
 
-            return count($this->obtenElDato()) > 0;
+            return count(self::obtenElDato()) > 0;
         }
 
         function obtenerId($token) {
-            $this->ejecuta(
+            self::ejecuta(
                 "SELECT id_usuario FROM tokens WHERE valor = ?",
                 $token
             );
 
-            return $this->obtenElDato()["id_usuario"];
+            return self::obtenElDato()["id_usuario"];
         }
 
         function obtenerNombre($id) {
-            $this->ejecuta(
+            self::ejecuta(
                 "SELECT nombre FROM usuarios WHERE id = ?",
                 $id
             );
 
-            return $this->obtenElDato()["nombre"];
+            return self::obtenElDato()["nombre"];
         }
     }
 ?>

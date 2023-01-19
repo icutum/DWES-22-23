@@ -1,6 +1,11 @@
 <?php
     require_once("../src/init.php");
 
+    if (isset($_SESSION["id"])) {
+        header("Location: listado.php");
+        die();
+    }
+
     const CHECKBOX_ON = "on";
 
     if (isset($_POST["login"])) {
@@ -21,9 +26,16 @@
                 $db->ejecuta("INSERT INTO tokens (id_usuario, valor) VALUES (?, ?)", $_SESSION["id"], $token);
 
                 setcookie("recuerdame", $token, [
-                    "expires" => time() + (7 * 24 * 60 * 60),
+                    "expires" => time() + ($_ENV["TOKEN_EXPIRACY"] * 24 * 60 * 60),
                     "httponly" => true
                 ]);
+            }
+
+            if (isset($_GET["redireccion"])) {
+                header("Location: " . $_GET["redireccion"]);
+                exit();
+            } else {
+                header("Location: listado.php");
             }
         } else {
             echo "<p>Error shurmano</p>";
@@ -35,15 +47,25 @@
 <html lang="es">
 <head>
     <?php require_once("../src/etiquetas-cabecera.php"); ?>
-    <title>Login | <?= $title ?></title>
+    <title>Iniciar sesión | <?= $title ?></title>
 </head>
 <body>
     <?php require_once("../src/nav.php"); ?>
-    <form action="" method="post">
-        User: <input type="text" name="nombre">
-        Password: <input type="password" name="passwd">
-        Recuérdame  <input type="checkbox" name="recuerdame">
-        <input type="submit" name="login" value="Login">
+    <form action="" method="post" class="container mt-5 w-25">
+        <h2 class="mb-3">Iniciar sesión en <?= $title ?></h2>
+        <div class="form-floating is-invalid mb-3">
+            <input type="text" class="form-control" name="nombre" placeholder="">
+            <label class="form-label">Usuario:</label>
+        </div>
+        <div class="form-floating is-invalid mb-3">
+            <input type="password" class="form-control" name="passwd" placeholder="">
+            <label class="form-label">Contraseña:</label>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-label" name="recuerdame">
+            <label class="form-check-label">Recuérdame</label>
+        </div>
+        <input type="submit" class="w-100 btn btn-primary" name="login" value="Iniciar sesión">
     </form>
 </body>
 </html>

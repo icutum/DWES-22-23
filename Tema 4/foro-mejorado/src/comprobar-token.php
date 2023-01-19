@@ -8,9 +8,15 @@
         $db->ejecuta(
             "UPDATE tokens 
                 SET expiracion = (NOW() + INTERVAL 7 DAY) 
-                WHERE token = ?",
+                WHERE valor = ?
+                AND id_usuario = ?",
 
-            $token
+            $token, $_SESSION["id"]
         );
+
+        setcookie("recuerdame", $token, [
+            "expires" => time() + ($_ENV["TOKEN_EXPIRACY"] * 24 * 60 * 60),
+            "httponly" => true
+        ]);
     }
 ?>
