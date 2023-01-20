@@ -3,7 +3,7 @@
 
     if (isset($_SESSION["id"])) {
         header("Location: listado.php");
-        die();
+        exit();
     }
 
     if (isset($_POST["registrar"])) {
@@ -24,6 +24,7 @@
             );
 
             header("Location: listado.php");
+            exit();
         }
 
     }

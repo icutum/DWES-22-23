@@ -3,7 +3,7 @@
 
     if (isset($_SESSION["id"])) {
         header("Location: listado.php");
-        die();
+        exit();
     }
 
     const CHECKBOX_ON = "on";
@@ -34,8 +34,10 @@
             if (isset($_GET["redireccion"])) {
                 header("Location: " . $_GET["redireccion"]);
                 exit();
+
             } else {
                 header("Location: listado.php");
+                exit();
             }
         } else {
             echo "<p>Error shurmano</p>";
