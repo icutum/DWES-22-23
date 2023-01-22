@@ -30,6 +30,13 @@
             $tipoImagen = str_replace("image/", "", $_FILES["imagen"]["type"]);
 
             if (($tipoImagen == "png" || $tipoImagen == "jpeg") && $_FILES["imagen"]["error"] == 0) {
+                $imagenAnterior = glob($_ENV["IMAGE_PATH"] . "" . $_SESSION['id'] . ".*")[0];
+                $imagenAnterior = str_replace($_ENV["IMAGE_PATH"], "", $imagenAnterior);
+
+                if (isset($imagenAnterior)) {
+                    unlink($_ENV["IMAGE_PATH"] . $imagenAnterior);
+                }
+
                 move_uploaded_file(
                     $rutaTmpImagen,
                     $_ENV["IMAGE_PATH"] . $_SESSION["id"] . ".$tipoImagen"
