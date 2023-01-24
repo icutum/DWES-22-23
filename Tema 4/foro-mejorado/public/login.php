@@ -67,6 +67,7 @@
             <input type="checkbox" class="form-check-label" name="recuerdame">
             <label class="form-check-label">Recuérdame</label>
         </div>
+        <p><a href="recuperar.php">He olvidado mi contraseña</a></p>
         <input type="submit" class="w-100 btn btn-primary" name="login" value="Iniciar sesión">
     </form>
 </body>

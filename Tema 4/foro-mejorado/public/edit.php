@@ -1,10 +1,6 @@
 <?php
     require_once("../src/init.php");
-
-    if (!isset($_SESSION["id"]) || $_SESSION["id"] == "") {
-        header("Location: login.php?redireccion=" . $_SERVER["REQUEST_URI"]);
-        die();
-    }
+    require_once("../src/redirigir-login.php");
 
     $db->ejecuta(
         "SELECT * FROM usuarios
@@ -31,10 +27,9 @@
 
             if (($tipoImagen == "png" || $tipoImagen == "jpeg") && $_FILES["imagen"]["error"] == 0) {
                 $imagenAnterior = glob($_ENV["IMAGE_PATH"] . "" . $_SESSION['id'] . ".*")[0];
-                $imagenAnterior = str_replace($_ENV["IMAGE_PATH"], "", $imagenAnterior);
 
                 if (isset($imagenAnterior)) {
-                    unlink($_ENV["IMAGE_PATH"] . $imagenAnterior);
+                    unlink($imagenAnterior);
                 }
 
                 move_uploaded_file(
