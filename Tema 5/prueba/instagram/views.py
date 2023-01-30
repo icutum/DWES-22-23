@@ -12,4 +12,7 @@ def index(request):
 
 def post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'instagram/post.html', {'post': post})
+    context = {
+        'post': post
+    }
+    return render(request, 'instagram/post.html', context)

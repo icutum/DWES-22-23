@@ -1,7 +1,10 @@
-{% load static %}
+{% extends "instagram/base.html" %}
 
-<h1>{{ post }}</h1>
-<img src="../..{{ post.post_image.url }}" alt="Publicación" width="500" height="500">
-<p>{{ post.post_likes }} likes</p>
-<p>Publicado el {{ post.pub_date }}.</p>
-<p></p>
+{% block title %}Publicación {{post.id}}{% endblock %}
+
+{% block content %}
+    <h1>{{ post }}</h1>
+    <img src="../..{{ post.post_image.url }}" alt="Publicación" width="500" height="500">
+    <p>{{ post.post_likes }} likes</p>
+    <p>Publicado el {{ post.pub_date|date:"d-m-Y" }}.</p>
+{% endblock  %}
