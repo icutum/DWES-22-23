@@ -4,7 +4,7 @@
     {% if posts %}
         <ol reversed>
         {% for post in posts %}
-            <li><a href="{% url 'post' post.id %}">{{ post.post_description }}</a></li>
+            <li><a href="{% url 'post' post.slug %}">{{ post.description }}</a></li>
         {% endfor %}
         </ol>
     {% else %}

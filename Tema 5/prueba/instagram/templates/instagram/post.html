@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>{{ post }}</h1>
-    <img src="../..{{ post.post_image.url }}" alt="Publicación" width="500" height="500">
-    <p>{{ post.post_likes }} likes</p>
+    <img src="../..{{ post.image.url }}" alt="Publicación" width="500" height="500">
+    <p>{{ post.likes }} likes</p>
     <p>Publicado el {{ post.pub_date|date:"d-m-Y" }}.</p>
 {% endblock  %}

@@ -10,8 +10,8 @@ def index(request):
     }
     return render(request, 'instagram/index.html', context)
 
-def post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def post(request, slug):
+    post = get_object_or_404(Post, slug=slug)
     context = {
         'post': post
     }
