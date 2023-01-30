@@ -1,0 +1,7 @@
+{% load static %}
+
+<h1>{{ post }}</h1>
+<img src="../..{{ post.post_image.url }}" alt="Publicación" width="500" height="500">
+<p>{{ post.post_likes }} likes</p>
+<p>Publicado el {{ post.pub_date }}.</p>
+<p></p>

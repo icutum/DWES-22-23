@@ -1,0 +1,9 @@
+{% if posts %}
+    <ol reversed>
+    {% for post in posts %}
+        <li><a href="{% url 'post' post.id %}">{{ post.post_description }}</a></li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>No hay publicaciones disponibles.</p>
+{% endif %}
