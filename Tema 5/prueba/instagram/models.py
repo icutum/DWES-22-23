@@ -13,30 +13,14 @@ class Post(models.Model):
         null=True,
         blank=True,
         unique=True,
-        max_length=50
     )
-
-    # @receiver(post_save, sender=Model)
-    # def _post_save_receiver(sender, **kwargs):
-
-    # def set_slug(self, slug = None):
-    #     if slug is not None:
-
-    #     else:
-    #         new_slug = slugify(self.description)
-
-
-    #     if Post.objects.check(new_slug):
-    #         new_slug.join()
-    #         return set_slug(self, new_slug)
 
     def __str__(self):
         return self.description
 
 @receiver(pre_save, sender=Post)
 def slug_generator(sender, instance, *args, **kwargs):
-    # acortar el slug a los caracteres del max_length
-    instance.slug = get_slug(instance)
+    instance.slug = get_slug(sender, instance)
 
 
 class Reply(models.Model):
