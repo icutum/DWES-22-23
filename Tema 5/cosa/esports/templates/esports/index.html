@@ -1,1 +1,12 @@
-<p>Hola</p>
+{% extends 'esports/base.html' %}
+
+{% block content %}
+    <h1>{{ titulo }}</h1>
+    <p>Mira shur nuestros eqipos son:</p>
+
+    <ul>
+    {% for equipo in equipos %}
+        <li><a href="{% url 'detalle equipo' equipo.nombre %}">{{ equipo.nombre }} ({{equipo.descripcion}})</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

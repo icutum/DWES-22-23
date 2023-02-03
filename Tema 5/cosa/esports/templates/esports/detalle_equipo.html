@@ -1,0 +1,16 @@
+{% extends 'esports/base.html' %}
+
+{% block title %}| {{equipo.nombre}}{% endblock %}
+
+{% block content %}
+    <h1>{{ equipo.nombre }}</h1>
+    <p>{{ equipo.descripcion }}</p>
+
+    <img src="{{ equipo.foto.url }}" alt="{{ equipo.nombre }}" width="250" height="250">
+    <p>Jugamos:</p>
+    <ul>
+        {% for juego in equipo.juegos.all %}
+            <li><a href="{% url 'detalle juego' juego.nombre %}">{{ juego }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
