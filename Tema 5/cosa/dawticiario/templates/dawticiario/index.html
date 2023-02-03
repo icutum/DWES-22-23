@@ -1,0 +1,25 @@
+{% extends 'dawticiario/base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col p-5 d-flex flex-column justify-content-center align-items-center">
+            <h1 class="mb-5">El noticiario de los shurs</h1>
+
+            {% for noticia in noticias %}
+                <div class="card mb-5 w-50 d-flex">
+                    <a href="{% url 'detalle' noticia.id %}">
+                        <img class="card-img-top" src="{{ noticia.img1.url }}" alt="{{ noticia.titulo }}" height="256px">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ noticia.titulo }}</h4>
+                        <p class="card-text">{{ noticia.descripcion|slice:":50" }}...</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

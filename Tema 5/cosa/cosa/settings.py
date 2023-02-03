@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'cosa',
     'esports.apps.EsportsConfig',
+    'dawticiario.apps.DawticiarioConfig',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,0 +1,52 @@
+{% extends 'dawticiario/base.html' %}
+
+{% block title %}{{ noticia.titulo }} | {{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col p-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'index' %}">{{ titulo }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ noticia.titulo }}</li>
+                </ol>
+            </nav>
+
+            <div id="carouselId" class="carousel slide mb-5" data-bs-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="0"></li>
+                    {% for imagen in imagenes %}
+                        {% if imagen %}
+                            <li data-bs-target="#carouselId" data-bs-slide-to="{{ forloop.counter }}" aria-label="{{ forloop.counter }}"></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img src="{{ noticia.img1.url }}" class="w-100 d-block" alt="0" height="500px">
+                    </div>
+                    {% for imagen in imagenes %}
+                        {% if imagen %}
+                            <div class="carousel-item">
+                                <img src="{{ imagen.url }}" class="w-100 d-block" alt="{{ forloop.counter }}" height="500px">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+
+            <h1>{{ noticia.titulo }}</h1>
+            <p>{{ noticia.descripcion }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
