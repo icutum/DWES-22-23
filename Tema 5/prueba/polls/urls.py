@@ -2,8 +2,12 @@ from django.urls import path
 
 from . import views
 
+# namespace
+app_name = 'polls'
+
 urlpatterns = [
     path('', views.index, name='index'),
-    path('holamundo/', views.holamundo, name='holamundo'),
-    path('useragent/', views.useragent, name='useragent')
+    path('<int:question_id>/', views.detail, name='detail'),
+    path('<int:question_id>/results/', views.results, name='results'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
