@@ -1,19 +1,23 @@
-<form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend>
-            <h1>{{ question.question_text }}</h1>
-            <h3>{{ question.pub_date }}</h3>
-        </legend>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        <ol type="a">
-        {% for choice in question.choice_set.all %}
-                <li>
-                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-                </li>
-        {% endfor %}
-        </ol>
-    </fieldset>
-    <input type="submit" value="Vote">
-</form>
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>
+                <h1>{{ question.question_text }}</h1>
+                <h3>{{ question.pub_date }}</h3>
+            </legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <ol type="a">
+            {% for choice in question.choice_set.all %}
+                    <li>
+                        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+                    </li>
+            {% endfor %}
+            </ol>
+        </fieldset>
+        <input type="submit" value="Vote">
+    </form>
+{% endblock content %}

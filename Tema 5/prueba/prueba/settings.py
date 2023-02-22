@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'polls.apps.PollsConfig',
     'instagram.apps.InstagramConfig',
     'django.contrib.admin',
