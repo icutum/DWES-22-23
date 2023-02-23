@@ -68,3 +68,8 @@ from .models import *
 
 admin.site.register(<Modelo>)
 ```
+
+### Obtener archivos static en producción
+```sh
+$ ./manage.py collectstatic
+```

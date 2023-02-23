@@ -1,0 +1,6 @@
+{% extends 'incidencias/base.html' %}
+
+{% block content %}
+    <h1>{{ mensaje }}</h1>
+    <a href="{% url 'incidencias:listado' %}">Ver todas</a>
+{% endblock content %}

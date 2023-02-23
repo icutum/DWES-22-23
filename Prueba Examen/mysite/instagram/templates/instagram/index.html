@@ -1,9 +1,0 @@
-{% extends 'instagram/base.html' %}
-
-{% block content %}
-    <ul>
-    {% for post in posts %}
-        <li><a href="{% url 'instagram:detail' post.id %}">{{ post.description}}</a></li>
-    {% endfor %}
-    </ul>
-{% endblock content %}

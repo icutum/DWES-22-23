@@ -1,0 +1,10 @@
+{% extends 'incidencias/base.html' %}
+
+{% block content %}
+    {% if mensaje_exito %}<p style="color: green"><strong>{{ mensaje_exito }}</strong></p>{% endif %}
+    <ul>
+    {% for estacion in estaciones %}
+        <li>Línea {{ estacion.linea.nombre }} - {{ estacion.nombre }} <a href="{% url 'incidencias:nueva' estacion.id %}">Nueva incidencia</a></li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
