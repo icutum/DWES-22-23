@@ -1,0 +1,26 @@
+{% extends 'instagram/base.html' %}
+
+{% block content %}
+
+<img src="{{ post.picture.url }}" width="250" height="250" alt="Post Image">
+<p>{{ post.description }}</p>
+<p>{{ post.date }}</p>
+
+<form action="{% url 'instagram:detail' post.id %}" method="post">
+    {% csrf_token %}
+    {% if error %}<p style="color: red">{{ error }}<p>{% endif %}
+    <div class="mb-3">
+        <label for="" class="form-label">Nuevo comentario</label>
+        <input type="text" class="form-control" name="comment" id="" aria-describedby="helpId" placeholder="">
+        <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+    </div>
+</form>
+
+<h2>Comentarios:</h2>
+<ul>
+{% for comment in post.comments.all|dictsortreversed:"date" %}
+    <li>{{ comment.text }} ({{ comment.date }})</li>
+{% endfor %}
+</ul>
+
+{% endblock content %}
