@@ -7,7 +7,7 @@ def main():
         print(f"Tu IMC es {imc:.2f}")
 
     except ValueError:
-        print("Prueba")
+        print("Mi loco me quedo flipando her")
 
 if __name__ == "__main__":
     main()
