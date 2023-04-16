@@ -7,7 +7,7 @@ def main():
         print(f"Tu IMC es {imc:.2f}")
 
     except ValueError:
-        print("Mi loco eso no son números shur")
+        print("Prueba")
 
 if __name__ == "__main__":
     main()
